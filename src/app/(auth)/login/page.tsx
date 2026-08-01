@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { authClient } from "@/app/lib/auth-client";
 
 export default function LoginPage() {
@@ -11,6 +13,7 @@ export default function LoginPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const validate = () => {
     const nextErrors: Record<string, string> = {};
@@ -35,37 +38,44 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const { data, error } = await authClient.signIn.email({
+      const { error } = await authClient.signIn.email({
         email: form.email,
         password: form.password,
-        callbackURL: "http://localhost:3000/dashboard",
+        callbackURL: "/",
       });
 
       if (error) {
-        setErrors({ form: error.message || "Login failed." });
+        const errorMessage = error.message || "Login failed.";
+        setErrors({ form: errorMessage });
+        toast.error(errorMessage);
         setLoading(false);
         return;
       }
 
-      setMessage("Login successful. Redirecting to your dashboard...");
+      const successMessage = "Login successful. Redirecting to the home page...";
+      setMessage(successMessage);
+      toast.success(successMessage);
       setForm({ email: "", password: "" });
+      router.replace("/");
     } catch {
-      setErrors({ form: "Something went wrong. Please try again." });
+      const errorMessage = "Something went wrong. Please try again.";
+      setErrors({ form: errorMessage });
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-zinc-950 px-4 py-10 text-zinc-100">
+    <main className="flex min-h-screen items-center justify-center px-4 py-10 ">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur"
       >
         <div className="mb-6">
           <p className="text-sm uppercase tracking-[0.3em] text-cyan-400">Welcome back</p>
-          <h1 className="mt-2 text-2xl font-semibold">Sign in to your account</h1>
-          <p className="mt-2 text-sm text-zinc-400">
+          <h1 className="mt-2 text-2xl font-semibold text-black">Sign in to your account</h1>
+          <p className="mt-2 text-sm text-zinc-700">
             Access your dashboard, campaigns, and credits securely.
           </p>
         </div>
@@ -75,7 +85,7 @@ export default function LoginPage() {
 
         <div className="space-y-4">
           <div>
-            <label className="mb-1 block text-sm text-zinc-300">Email</label>
+            <label className="mb-1 block text-md text-zinc-700">Email</label>
             <input
               type="email"
               value={form.email}
@@ -87,7 +97,7 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm text-zinc-300">Password</label>
+            <label className="mb-1 block text-md text-zinc-700">Password</label>
             <input
               type="password"
               value={form.password}

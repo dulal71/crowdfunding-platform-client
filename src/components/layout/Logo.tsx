@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Unbounded } from "next/font/google";
 
 const unbounded = Unbounded({
@@ -16,13 +19,44 @@ export function Logo({
   return (
     <Link
       href={href}
-      className={`inline-flex items-center rounded-xl   ${className}`}
+      className={`relative inline-block overflow-hidden ${className}`}
     >
-      <span
-        className={`${unbounded.className} bg-gradient-to-r from-sky-600 via-cyan-600 to-indigo-600 bg-clip-text text-2xl font-bold tracking-[0.12em] text-transparent uppercase`}
-      >
-        CROWDNEST
-      </span>
+      <motion.span
+  animate={{
+    backgroundPosition: [
+      "0% 50%",
+      "100% 50%",
+      "0% 50%",
+    ],
+  }}
+  transition={{
+    duration: 5,
+    repeat: Infinity,
+    ease: "linear",
+  }}
+  className={`${unbounded.className}
+    bg-[linear-gradient(90deg,#0ea5e9,#06b6d4,#6366f1,#0ea5e9)]
+    bg-[length:300%_300%]
+    bg-clip-text
+    text-transparent
+    text-2xl
+    font-bold`}
+>
+  CROWDNEST
+</motion.span>
+
+      <motion.div
+        className="absolute inset-y-0 -left-24 w-20 bg-gradient-to-r from-transparent via-white/70 to-transparent blur-md"
+        animate={{
+          x: ["0%", "450%"],
+        }}
+        transition={{
+          duration: 2.8,
+          repeat: Infinity,
+          ease: "linear",
+          repeatDelay: 1,
+        }}
+      />
     </Link>
   );
 }
