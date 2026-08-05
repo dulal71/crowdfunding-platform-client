@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import type { IconType } from "react-icons";
@@ -85,7 +85,7 @@ export default function MobileMenu({
   isLoggingOut,
 }: MobileMenuProps) {
   const pathname = usePathname();
-
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
     if (!isMenuOpen) return;
 
@@ -102,6 +102,9 @@ export default function MobileMenu({
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isMenuOpen, onClose]);
+  useEffect(() => {
+  setMounted(true);
+}, []);
 
   const isActive = (href: string) =>
     pathname === href || (href !== "/" && pathname.startsWith(href));
@@ -227,18 +230,19 @@ export default function MobileMenu({
     </>
   );
 
-  return (
-    <div className="md:hidden">
-      <button
-        type="button"
-        aria-label="Open menu"
-        aria-expanded={isMenuOpen}
-        onClick={onOpen}
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-zinc-700 transition-colors hover:bg-zinc-200"
-      >
-        <GiHamburgerMenu size={18} />
-      </button>
-      {typeof document !== "undefined" && createPortal(drawer, document.body)}
-    </div>
-  );
+ return (
+  <div className="md:hidden">
+    <button
+      type="button"
+      aria-label="Open menu"
+      aria-expanded={isMenuOpen}
+      onClick={onOpen}
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-zinc-700 transition-colors hover:bg-zinc-200"
+    >
+      <GiHamburgerMenu size={18} />
+    </button>
+
+    {mounted && createPortal(drawer, document.body)}
+  </div>
+);
 }

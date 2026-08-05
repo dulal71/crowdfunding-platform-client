@@ -27,8 +27,8 @@ console.log(user);
         <DashboardNavbar notifications={notifications} user={user} />
       </header>
 
-      <div className="flex flex-1">
-        <aside className="">
+      <div className="flex flex-1 flex-col md:flex-row">
+        <aside className="md:py-4 md:pl-4">
           <DashboardSidebar user={user} />
         </aside>
 

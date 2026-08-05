@@ -1,5 +1,8 @@
-import { RoleDashboardHome } from "@/components/dashboard/RoleDashboardHome";
+import { SupporterDashboard } from "@/components/supporter/supporterDashboard";
+import { getSessionUser } from "@/app/lib/auth-server";
 
-export default function SupporterHomePage() {
-  return <RoleDashboardHome role="supporter" />;
+export default async function SupporterHomePage() {
+  const user = await getSessionUser();
+
+  return <SupporterDashboard user={user ?? undefined} />;
 }
