@@ -12,7 +12,12 @@ import {
   FiUser,
   FiBox,
   FiDollarSign,
+  FiSearch,
+  FiClock,
+  FiHeart,
 } from "react-icons/fi";
+import { GiReceiveMoney } from "react-icons/gi";
+import { PiCoins } from "react-icons/pi";
 
 export type DashboardNavItem = {
   label: string;
@@ -24,20 +29,50 @@ export type DashboardNavItem = {
 export const dashboardNavItemsByRole: Record<string, DashboardNavItem[]> = {
   supporter: [
     { label: "Dashboard", href: "/dashboard/supporter", description: "Overview", icon: FiLayout },
-    { label: "My Donations", href: "/dashboard/supporter/my-contributions", description: "Your funding activity", icon: FiDollarSign },
-    { label: "Explore Campaigns", href: "/dashboard/supporter/explore-campaigns", description: "Saved campaigns", icon: FiStar },
-    { label: "Payment History", href: "/profile", description: "payment-history", icon: FiUser },
-    { label: "Purchase Credit", href: "/dashboard/supporter/purchase-credit", description: "Preferences", icon: FiSettings },
+    { label: "My Donations", href: "/dashboard/supporter/my-contributions", description: "My Donations", icon:GiReceiveMoney  },
+    { label: "Explore Campaigns", href: "/dashboard/supporter/explore-campaigns", description: "Explore Campaigns", icon:FiSearch },
+    { label: "Payment History", href: "/dashboard/supporter/payment-history", description: "payment-history", icon: FiClock },
+    { label: "Purchase Credit", href: "/dashboard/supporter/purchase-credit", description: "Preferences", icon: PiCoins },
   ],
-  creator: [
-    { label: "Dashboard", href: "/dashboard/creator", description: "Overview", icon: FiLayout },
-    { label: "My Campaigns", href: "/dashboard/creator/my-campaigns", description: "Your active projects", icon: FiBookOpen },
-    { label: "Create Campaign", href: "/dashboard/creator/new-campaign", description: "Launch a new project", icon: FiPlusCircle },
-    { label: "Supporters", href: "/dashboard/creator/supporters", description: "Community updates", icon: FiUsers },
-    { label: "Analytics", href: "/dashboard/creator/analytics", description: "Performance insights", icon: FiBarChart2 },
-    { label: "Profile", href: "/profile", description: "Account details", icon: FiUser },
-    { label: "Settings", href: "/dashboard/creator/settings", description: "Preferences", icon: FiSettings },
-  ],
+creator: [
+  {
+    label: "Dashboard",
+    href: "/dashboard/creator",
+    description: "Campaign overview",
+    icon: FiLayout,
+  },
+  {
+    label: "My Campaigns",
+    href: "/dashboard/creator/my-campaigns",
+    description: "Manage your campaigns",
+    icon: FiBookOpen,
+  },
+  {
+    label: "Create Campaign",
+    href: "/dashboard/creator/new-campaign",
+    description: "Start a new fundraiser",
+    icon: FiPlusCircle,
+  },
+  {
+    label: "Supporters",
+    href: "/dashboard/creator/withdrawals",
+    description: "View your supporters",
+    icon: FiHeart,
+  },
+  {
+    label: "payment-History",
+    href: "/dashboard/creator/payment-history",
+    description: "Track campaign performance",
+    icon: FiBarChart2,
+  },
+  {
+    label: "Profile",
+    href: "/profile",
+    description: "Manage your profile",
+    icon: FiUser,
+  },
+  
+],
   admin: [
     { label: "Dashboard", href: "/dashboard/admin", description: "Overview", icon: FiLayout },
     { label: "Manage Users", href: "/dashboard/admin/manage-users", description: "User administration", icon: FiUsers },

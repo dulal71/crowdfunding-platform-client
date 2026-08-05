@@ -1,5 +1,8 @@
-import { RoleDashboardHome } from "@/components/dashboard/RoleDashboardHome";
+import { CreatorDashboard } from "@/components/creator/creatorDashboard";
+import { getSessionUser } from "@/app/lib/auth-server";
 
-export default function CreatorHomePage() {
-  return <RoleDashboardHome role="creator" />;
+export default async function CreatorHomePage() {
+  const user = await getSessionUser();
+
+  return <CreatorDashboard user={user ?? undefined} />;
 }

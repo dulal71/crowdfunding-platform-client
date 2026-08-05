@@ -113,7 +113,12 @@ export function DashboardSidebar({
       <nav className="flex-1 space-y-1 overflow-y-auto">
         {filteredItems.map((item) => {
           const isActive =
-            pathname === item.href || (pathname.startsWith(item.href) && item.href !== "/");
+            pathname === item.href ||
+            (pathname.startsWith(item.href + "/") &&
+              !items.some(
+                (other) =>
+                  other.href !== item.href && other.href.startsWith(item.href)
+              ));
           const Icon = item.icon;
 
           return (
