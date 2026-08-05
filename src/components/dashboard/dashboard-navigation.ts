@@ -49,7 +49,7 @@ creator: [
   },
   {
     label: "Create Campaign",
-    href: "/dashboard/creator/new-campaign",
+    href: "/dashboard/creator/new-campaigns",
     description: "Start a new fundraiser",
     icon: FiPlusCircle,
   },
