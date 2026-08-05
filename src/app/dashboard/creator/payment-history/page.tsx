@@ -1,6 +1,6 @@
 
 
-const DashboardHomePage = () => {
+const PaymentHistory = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const DashboardHomePage = () => {
     );
 };
 
-export default DashboardHomePage;
+export default PaymentHistory;
