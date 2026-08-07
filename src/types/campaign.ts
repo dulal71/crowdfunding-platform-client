@@ -1,4 +1,5 @@
 export type ICampaign = {
+  _id:string,
   campaign_title: string;
   campaign_story: string;
   category: string;

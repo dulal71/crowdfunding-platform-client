@@ -1,4 +1,6 @@
 import getAllCampaign from "@/app/lib/service/getAllCampaign";
+import CampaignCard from "@/components/campaign/CampaignCard";
+import { ICampaign } from "@/types/campaign";
 
 const CampaignsPage = async () => {
   const {data:campaigns} = await getAllCampaign();
@@ -7,11 +9,8 @@ const CampaignsPage = async () => {
 
   return (
     <div>
-      {campaigns.map((campaign) => (
-        <div key={campaign.campaign_title}>
-          <h2>{campaign.campaign_title}</h2>
-          <p>{campaign.campaign_story}</p>
-        </div>
+      {campaigns.map((campaign:ICampaign) => (
+        <CampaignCard key={campaign._id} campaign={campaign}></CampaignCard>
       ))}
     </div>
   );
