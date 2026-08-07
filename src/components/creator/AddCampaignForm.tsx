@@ -12,6 +12,7 @@ import {
   type CampaignErrors,
   type CampaignFormValues,
 } from "@/components/creator/campaignForm";
+import { addCampaign } from "@/app/lib/service/addCampaign";
 
 const fieldClasses =
   "w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-black outline-none ring-0 focus:border-cyan-500";
@@ -69,9 +70,8 @@ export function AddCampaignForm() {
 
     try {
       // Replace with the backend API call once available.
-      await new Promise((resolve) => setTimeout(resolve, 600));
-      console.log("New campaign payload:", payload);
-
+    const res =  await addCampaign(payload)
+console.log(res);
       toast.success("Campaign submitted for review. It will go live after admin approval.");
       setForm(initialCampaignForm);
       setSelectedFileName("");
