@@ -9,3 +9,9 @@ export type ICampaign = {
   campaign_image_url: string;
   status: "pending";
 };
+
+export type CampaignResponse = {
+  success: boolean;
+  message?: string;
+  data: ICampaign[];
+};
