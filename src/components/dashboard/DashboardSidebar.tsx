@@ -55,7 +55,7 @@ export function DashboardSidebar({
 
   const sidebarContent = (
     <div
-      className={`flex h-full flex-col rounded-3xl border border-zinc-100 bg-white p-4 shadow-sm transition-[width] duration-200 ${
+      className={`flex h-full flex-col rounded-2xl bg-linear-to-t from-sky-50 to-white p-4 shadow-md transition-[width] duration-200 ${
         collapsed ? "w-20" : "w-64"
       }`}
     >
