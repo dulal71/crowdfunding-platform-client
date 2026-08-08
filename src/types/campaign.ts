@@ -15,5 +15,12 @@ export type ICampaign = {
 export type CampaignResponse = {
   success: boolean;
   message?: string;
-  data: ICampaign[];
+  data: {
+    campaigns: ICampaign[];
+    total: number;
+    active: number;
+    pending: number;
+    completed: number;
+  };
 };
+

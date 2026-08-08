@@ -7,7 +7,7 @@ export const getData = async (path: string) => {
 
   const result = await res.json();
 
-  console.log(result);
+
 
   if (!res.ok) {
     throw new Error(result.message || "Something went wrong");

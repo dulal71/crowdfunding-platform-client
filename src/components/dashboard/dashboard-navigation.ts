@@ -1,4 +1,5 @@
 import type { IconType } from "react-icons";
+import { FaHome } from "react-icons/fa";
 import {
   FiBarChart2,
   FiCreditCard,
@@ -77,9 +78,9 @@ creator: [
     { label: "Dashboard", href: "/dashboard/admin", description: "Overview", icon: FiLayout },
     { label: "Manage Users", href: "/dashboard/admin/manage-users", description: "User administration", icon: FiUsers },
     { label: "Manage Campaigns", href: "/dashboard/admin/campaigns", description: "Review campaigns", icon: FiBox },
-    { label: "Donations", href: "/dashboard/admin/donations", description: "Funding activity", icon: FiCreditCard },
-    { label: "Reports", href: "/dashboard/admin/reports", description: "Insights and exports", icon: FiFileText },
-    { label: "Settings", href: "/dashboard/admin/settings", description: "Platform preferences", icon: FiSettings },
+   { label: "Reports", href: "/dashboard/admin/reports", description: "Insights and exports", icon: FiFileText },
+    { label: "Home", href: "/", description: "Back Home", icon: FaHome },
+    { label: "Explore Campaigns", href: "/campaigns", description: "Back Home", icon: FiSearch },
   ],
 };
 export const getDashboardHref = (role: string) => {
