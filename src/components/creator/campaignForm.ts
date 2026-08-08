@@ -28,6 +28,7 @@ export type CampaignPayload = {
   campaign_story: string;
   category: string;
   funding_goal: number;
+  funded_amount:0;
   minimum_Contribution: number;
   deadline: string;
   reward_info: string;
@@ -110,6 +111,7 @@ export function buildCampaignPayload(form: CampaignFormValues): CampaignPayload 
     campaign_story: form.campaign_story.trim(),
     category: form.category,
     funding_goal: Number(form.funding_goal),
+    funded_amount:0,
     minimum_Contribution: Number(form.minimum_Contribution),
     deadline: new Date(form.deadline).toISOString(),
     reward_info: form.reward_info.trim(),

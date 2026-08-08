@@ -4,6 +4,7 @@ export type ICampaign = {
   campaign_story: string;
   category: string;
   funding_goal: number;
+  funded_amount:number;
   minimum_Contribution: number;
   deadline: string;
   reward_info: string;

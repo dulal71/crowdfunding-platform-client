@@ -44,6 +44,7 @@ export default function CampaignCard({ campaign }: CampaignCardProps) {
   campaign_story,
   category,
   funding_goal,
+  funded_amount,
   minimum_Contribution,
   deadline,
   reward_info,
@@ -51,57 +52,42 @@ export default function CampaignCard({ campaign }: CampaignCardProps) {
   status,
   } = campaign;
 
-  const raised =  funding_goal ?? 0;
-  const goal = funding_goal || 1;
-  const pct = useMemo(
-    () => Math.min(100, Math.round((raised / goal) * 100)),
-    [raised, goal]
-  );
+  const raised = funded_amount  ?? 0;
+  const goal = funding_goal ?? 0;
+
+  const pct = useMemo(()=>{
+if (goal <= 0) return 0;
+return  Math.min(100, Math.round((raised / goal) * 100))
+  },[raised, goal])
+     
+  
   const remainingDays = daysLeft(deadline);
   const statusClass = status ? STATUS_STYLES[status] ?? STATUS_STYLES.pending : "";
 
   return (
-    <div className="w-full max-w-sm mx-auto bg-linear-to-t from-sky-50 to-white rounded-[22px] overflow-hidden shadow-lg shadow-cyan-900/10 border border-cyan-100">
+    <div className="w-full max-w-sm mx-auto bg-linear-to-t from-sky-50 to-white rounded-[22px] overflow-hidden shadow-lg shadow-cyan-900/10 ">
       {/* Hero image */}
-      <div className="relative h-48 w-full">
-        {campaign_image_url ? (
-          <Image
-          width={250}
-          height={192}
-            src={campaign_image_url}
-            alt={campaign_title || "Campaign image"}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-cyan-900 via-cyan-700 to-sky-500">
-            <FaDropletSlash size={56} className="text-white/80" strokeWidth={1.5} />
-          </div>
-        )}
+      <div className="relative">
+  <Image
+    src={campaign_image_url}
+    alt={campaign_title}
+    width={500}
+    height={300}
+    className="w-full h-64 object-cover rounded-xl"
+  />
 
-        {category && (
-          <span className="absolute top-3.5 left-3.5 bg-white/95 text-cyan-950 text-[11px] font-bold uppercase tracking-wide px-3 py-1.5 rounded-full shadow">
-            {category}
-          </span>
-        )}
+  {category && (
+    <span className="absolute top-3.5 left-3.5 bg-white/95 text-cyan-950 text-[11px] font-bold uppercase tracking-wide px-3 py-1.5 rounded-full shadow">
+      {category}
+    </span>
+  )}
 
-        {status && (
-          <span className={`absolute top-3.5 right-3.5 text-[11px] font-bold px-3 py-1.5 rounded-full ${statusClass}`}>
-            {status.charAt(0).toUpperCase() + status.slice(1)}
-          </span>
-        )}
-
-        {/* Wave divider */}
-        <svg
-          viewBox="0 0 400 24"
-          preserveAspectRatio="none"
-          className="absolute -bottom-px left-0 w-full h-6 text-sky-50"
-        >
-          <path
-            d="M0,12 C50,24 100,0 150,10 C200,20 250,2 300,10 C350,18 380,6 400,12 L400,24 L0,24 Z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
+  {status && (
+    <span className={`absolute top-3.5 right-3.5 text-[11px] font-bold px-3 py-1.5 rounded-full ${statusClass}`}>
+      {status.charAt(0).toUpperCase() + status.slice(1)}
+    </span>
+  )}
+</div>
 
       {/* Body */}
       <div className="px-5 pt-4 pb-5">
@@ -160,14 +146,14 @@ export default function CampaignCard({ campaign }: CampaignCardProps) {
                 key={i}
                 className="w-[34px] h-[34px] rounded-full bg-white border border-slate-200 flex items-center justify-center cursor-pointer hover:bg-slate-50"
               >
-                <IconBase size={15} className="text-cyan-950" />
+                <Icon size={15} className="text-cyan-950" />
               </span>
             ))}
           </div>
 
           <button
             type="button"
-            className="border-[1.5px] border-rose-500 text-rose-500 font-bold text-xs px-[18px] py-2 rounded-full hover:bg-rose-500 hover:text-white transition-colors"
+            className="border-[1.5px] border-rose-900 text-rose-700 font-bold text-xs px-[18px] py-2 rounded-full hover:bg-rose-900 hover:text-white transition-colors"
           >
             Donate Now
           </button>
@@ -186,7 +172,13 @@ export default function CampaignCard({ campaign }: CampaignCardProps) {
             </div>
             <div className="h-2.5 w-full bg-white rounded-full overflow-hidden">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-cyan-600 to-sky-400 transition-all duration-500"
+                className={`h-full rounded-full  transition-all duration-500 
+                  ${
+      pct >= 100
+        ? "bg-red-500"
+        : "bg-gradient-to-r from-cyan-600 to-sky-400"
+    }
+                  `}
                 style={{ width: `${pct}%` }}
               />
             </div>
