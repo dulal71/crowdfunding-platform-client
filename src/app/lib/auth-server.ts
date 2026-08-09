@@ -2,11 +2,12 @@ import { headers } from "next/headers";
 import { auth } from "@/app/lib/auth";
 
 export type DashboardUser = {
-  id?: string;
-  name?: string;
-  email?: string;
-  role?: string;
-  credits?: number;
+  id: string;
+  name: string;
+  email: string;
+  image:string;
+  role: string;
+  credits: number;
 };
 
 export async function getSessionUser(): Promise<DashboardUser | null> {

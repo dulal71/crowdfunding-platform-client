@@ -13,6 +13,7 @@ import {
   type CampaignFormValues,
 } from "@/components/creator/campaignForm";
 import { addCampaign } from "@/app/lib/service/addCampaign";
+import { DashboardUser } from "@/app/lib/auth-server";
 
 const fieldClasses =
   "w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-black outline-none ring-0 focus:border-cyan-500";
@@ -21,7 +22,7 @@ function FieldError({ message }: { message?: string }) {
   return message ? <p className="mt-1 text-sm text-rose-500">{message}</p> : null;
 }
 
-export function AddCampaignForm() {
+export function AddCampaignForm({user}:DashboardUser) {
   const [form, setForm] = useState<CampaignFormValues>(initialCampaignForm);
   const [errors, setErrors] = useState<CampaignErrors>({});
   const [loading, setLoading] = useState(false);
@@ -64,7 +65,12 @@ export function AddCampaignForm() {
       return;
     }
 
-    const payload = buildCampaignPayload(form);
+     const payload = {
+    ...buildCampaignPayload(form),
+    user_id: user.id,
+    user_name: user.name,
+    user_email: user.email,
+  };
 
     setLoading(true);
 

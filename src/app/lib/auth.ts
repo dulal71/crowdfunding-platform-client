@@ -30,11 +30,7 @@ export const auth = betterAuth({
         required: true,
         defaultValue: 0,
       },
-      profilePictureUrl: {
-        type: "string",
-        required: false,
-        defaultValue: "",
-      },
+      
     },
   },
 });

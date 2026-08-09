@@ -1,9 +1,11 @@
+import { getSessionUser } from "@/app/lib/auth-server";
 import { AddCampaignForm } from "@/components/creator/AddCampaignForm";
 
-export default function NewCampaignsPage() {
+export default async function NewCampaignsPage() {
+  const user = await getSessionUser()
   return (
     <div>
-      <AddCampaignForm />
+      <AddCampaignForm  user={user}/>
     </div>
   );
 }

@@ -15,9 +15,10 @@ export default function RegisterPage() {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    image:'',
     password: "",
     role: "supporter" as "supporter" | "creator",
-    profilePictureUrl: "",
+   
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [message, setMessage] = useState("");
@@ -37,40 +38,38 @@ export default function RegisterPage() {
       nextErrors.password = "Password must be at least 8 characters long.";
     }
     if (!form.role) nextErrors.role = "Please select a role.";
-    if (selectedFileName && !form.profilePictureUrl) {
-      nextErrors.profilePictureUrl = "Please wait for the image upload to finish.";
-    }
+    
 
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
 
-  const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+ const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const file = event.target.files?.[0];
+  if (!file) return;
 
-    setUploading(true);
-    setSelectedFileName(file.name);
-    setErrors((prev) => ({ ...prev, profilePictureUrl: "" }));
-    setMessage("");
+  setUploading(true);
+  setSelectedFileName(file.name);
+  setErrors((prev) => ({ ...prev, image: "" }));
+  setMessage("");
 
-    try {
-      const url = await uploadToImgBB(file);
-      setForm((prev) => ({ ...prev, profilePictureUrl: url }));
-      setMessage("Profile image uploaded successfully.");
-      toast.success("Profile image uploaded successfully.");
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Upload failed.";
-      setErrors((prev) => ({
-        ...prev,
-        profilePictureUrl: errorMessage,
-      }));
-      setSelectedFileName("");
-      toast.error(errorMessage);
-    } finally {
-      setUploading(false);
-    }
-  };
+  try {
+    const url = await uploadToImgBB(file);
+    setForm((prev) => ({ ...prev, image: url }));
+    setMessage("Profile image uploaded successfully.");
+    toast.success("Profile image uploaded successfully.");
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : "Upload failed.";
+    setErrors((prev) => ({
+      ...prev,
+      image: errorMessage,
+    }));
+    setSelectedFileName("");
+    toast.error(errorMessage);
+  } finally {
+    setUploading(false);
+  }
+};
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -78,11 +77,7 @@ export default function RegisterPage() {
 
     if (!validate()) return;
 
-    if (selectedFileName && !form.profilePictureUrl) {
-      setErrors({ profilePictureUrl: "Please wait for the image upload to finish." });
-      return;
-    }
-
+    
     setLoading(true);
 
     try {
@@ -90,13 +85,13 @@ export default function RegisterPage() {
         name: form.name,
         email: form.email,
         password: form.password,
-        image: form.profilePictureUrl || undefined,
+        image: form.image,
         callbackURL: "/",
         fetchOptions: {
           body: {
             role: form.role,
             credits: form.role === "creator" ? 20 : 50,
-            profilePictureUrl: form.profilePictureUrl,
+
           },
         },
       });
@@ -166,20 +161,19 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-zinc-700">Profile picture</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-black outline-none ring-0"
-            />
-            {selectedFileName ? (
-              <p className="mt-2 text-sm text-zinc-600">Selected file: {selectedFileName}</p>
-            ) : null}
-            {uploading ? <p className="mt-2 text-sm text-cyan-600">Uploading image...</p> : null}
-            {errors.profilePictureUrl ? <p className="mt-1 text-sm text-rose-500">{errors.profilePictureUrl}</p> : null}
-          </div>
-
+  <label className="mb-1 block text-sm font-medium text-zinc-700">Profile picture</label>
+  <input
+    type="file"
+    accept="image/*"
+    onChange={handleImageChange}
+    className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-black outline-none ring-0"
+  />
+  {selectedFileName ? (
+    <p className="mt-2 text-sm text-zinc-600">Selected file: {selectedFileName}</p>
+  ) : null}
+  {uploading ? <p className="mt-2 text-sm text-cyan-600">Uploading image...</p> : null}
+  {errors.image ? <p className="mt-1 text-sm text-rose-500">{errors.image}</p> : null}
+</div>
           <div>
             <label className="mb-1 block text-sm font-medium text-zinc-700">Password</label>
             <input

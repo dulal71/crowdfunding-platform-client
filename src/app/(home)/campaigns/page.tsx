@@ -3,7 +3,7 @@ import CampaignCard from "@/components/campaign/CampaignCard";
 import { ICampaign } from "@/types/campaign";
 
 const CampaignsPage = async () => {
-  const {data} = await getAllCampaign();
+  const {data} = await getAllCampaign('active');
       const {campaigns} = data;
 
 
