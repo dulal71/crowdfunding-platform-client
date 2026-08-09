@@ -3,6 +3,7 @@ import { getSessionUser } from "@/app/lib/auth-server";
 
 import { DashboardNavbar } from "@/components/dashboard/DashboardNavbar";
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
+import { getNotification } from "../lib/service/notifications";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const user = await getSessionUser();
@@ -13,13 +14,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   
 console.log(user);
-  const notifications = [
-    { id: "1", title: "New Donation Received" },
-    { id: "2", title: "Campaign Approved" },
-    { id: "3", title: "Funding Milestone Reached" },
-    { id: "4", title: "Profile Successfully Verified" },
-    { id: "5", title: "New Supporter Message" },
-  ];
+const {data:notifications}=await getNotification(user.id)
+  console.log(notifications);
 
   return (
     <div className="min-h-screen flex flex-col">

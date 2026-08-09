@@ -24,3 +24,14 @@ export type CampaignResponse = {
   };
 };
 
+
+export type Notification = {
+  _id: string;
+  type: string;
+  title: string;
+  message: string;
+  userId: string;
+  campaignId: string;
+  isRead: boolean;
+  createdAt: string;
+};

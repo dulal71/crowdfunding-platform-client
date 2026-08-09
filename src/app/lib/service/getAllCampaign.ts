@@ -4,7 +4,7 @@ import { getData } from "../action/getData";
 
 
 const getAllCampaign =async (status="" ): Promise<CampaignResponse> => {
- const result=  await getData(`/campaigns?status=${status}`)
+ const result=  await getData(`/api/v1/campaigns?status=${status}`)
  return result
 };
 

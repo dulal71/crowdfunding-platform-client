@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 
 import { Logo } from "../layout/Logo";
+import { Notification } from "@/types/campaign";
 
 
 type DashboardUser = {
@@ -13,11 +14,7 @@ type DashboardUser = {
   role?: string | null;
 };
 
-type Notification = {
-  id: string;
-  title: string;
-  read?: boolean;
-};
+
 
 type DashboardNavbarProps = {
   user: DashboardUser;
@@ -102,7 +99,7 @@ export function DashboardNavbar({user, notifications = [] }: DashboardNavbarProp
                   <ul className="flex flex-col gap-1">
                     {notifications.map((n) => (
                       <li
-                        key={n.id}
+                        key={n._id}
                         className={`rounded-lg px-2 py-2 text-sm ${
                           n.read ? "text-zinc-500" : "font-medium text-zinc-800"
                         } hover:bg-zinc-50`}
