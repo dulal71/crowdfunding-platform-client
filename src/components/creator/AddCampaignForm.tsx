@@ -116,7 +116,7 @@ console.log(res);
             <textarea
               value={form.campaign_story}
               onChange={(event) => updateField("campaign_story", event.target.value)}
-              rows={6}
+              rows={2}
               className={fieldClasses}
               placeholder="Tell supporters why this campaign matters and what you plan to do..."
             />
@@ -199,19 +199,9 @@ console.log(res);
               onChange={handleImageChange}
               className={fieldClasses}
             />
-            {selectedFileName ? (
-              <p className="mt-2 text-sm text-zinc-600">Selected file: {selectedFileName}</p>
-            ) : null}
+            
             {uploading ? <p className="mt-2 text-sm text-cyan-600">Uploading image...</p> : null}
-            {form.campaign_image_url ? (
-              <Image
-                src={form.campaign_image_url}
-                alt="Campaign cover preview"
-                width={1200}
-                height={400}
-                className="mt-3 h-40 w-full rounded-xl border border-zinc-200 object-cover"
-              />
-            ) : null}
+            
             <FieldError message={errors.campaign_image_url} />
           </div>
         </div>

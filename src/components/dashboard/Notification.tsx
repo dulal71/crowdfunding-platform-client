@@ -1,0 +1,135 @@
+"use client";
+
+import { INotification } from "@/types/campaign";
+import Link from "next/link";
+import { useEffect } from "react";
+import { AiOutlineBell, AiOutlineClose } from "react-icons/ai";
+
+type NotificationProps = {
+  isNotifOpen: boolean;
+  setIsNotifOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  unreadCount: number;
+  notifRef: React.RefObject<HTMLDivElement | null>;
+  notifications: INotification[];
+};
+
+const Notification = ({
+  isNotifOpen,
+  setIsNotifOpen,
+  unreadCount,
+  notifRef,
+  notifications,
+}: NotificationProps) => {
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        notifRef.current &&
+        !notifRef.current.contains(e.target as Node)
+      ) {
+        setIsNotifOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [notifRef, setIsNotifOpen]);
+
+  return (
+    <div ref={notifRef} className="relative">
+      {/* Notification Button */}
+      <button
+        type="button"
+        aria-label="Notifications"
+        onClick={() => setIsNotifOpen((prev) => !prev)}
+        className="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-zinc-600 transition hover:bg-zinc-50"
+      >
+        <AiOutlineBell className="text-xl" />
+
+        {unreadCount > 0 && (
+          <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">
+            {unreadCount > 9 ? "9+" : unreadCount}
+          </span>
+        )}
+      </button>
+
+      {/* Notification Dropdown */}
+      {isNotifOpen && (
+        <div className="absolute right-0 z-20 mt-2 w-80 rounded-2xl border border-zinc-200 bg-white p-2 shadow-lg">
+          {/* Header */}
+          <div className="flex items-center justify-between px-2 py-1">
+            <div className="text-md font-semibold text-zinc-700">
+              Notifications{" "}
+              <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-600">
+                {notifications.length}
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setIsNotifOpen(false)}
+              className="rounded-full p-1 text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-800"
+            >
+              <AiOutlineClose />
+            </button>
+          </div>
+
+          {/* Actions */}
+          <div className="flex items-center justify-between border-b px-2 py-2 text-xs">
+            <button
+              type="button"
+              className="cursor-pointer text-green-700 hover:underline"
+            >
+              Mark all as read
+            </button>
+
+            <button
+              type="button"
+              className="cursor-pointer text-zinc-600 hover:underline"
+            >
+              Clear all
+            </button>
+          </div>
+
+          {/* Notifications */}
+          {notifications.length === 0 ? (
+            <p className="px-2 py-4 text-sm text-zinc-500">
+              You're all caught up.
+            </p>
+          ) : (
+            <div className="max-h-80 overflow-y-auto">
+              {notifications.map((n) => (
+                <Link
+                  key={n._id}
+                  href={`/dashboard/admin/campaigns/${n.campaignId}`}
+                  className="block border-b px-2 py-3 transition last:border-b-0 hover:bg-zinc-50"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="font-medium text-zinc-800">
+                      {n.title}
+                    </p>
+
+                    {!n.isRead && (
+                      <span className="h-2 w-2 shrink-0 rounded-full bg-green-600" />
+                    )}
+                  </div>
+
+                  <p className="mt-1 text-[13px] text-zinc-700">
+                    {n.message.split(/\s+/).slice(0, 3).join(" ")}
+                    {n.message.trim().split(/\s+/).length > 3
+                      ? "..."
+                      : ""}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Notification;

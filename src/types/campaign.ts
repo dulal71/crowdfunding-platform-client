@@ -25,7 +25,7 @@ export type CampaignResponse = {
 };
 
 
-export type Notification = {
+export type INotification = {
   _id: string;
   type: string;
   title: string;
