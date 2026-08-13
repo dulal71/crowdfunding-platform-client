@@ -38,7 +38,7 @@ const Notification = ({
   }, [notifRef, setIsNotifOpen]);
 
   return (
-    <div ref={notifRef} className="relative">
+    <div ref={notifRef} className="relative z-50">
       {/* Notification Button */}
       <button
         type="button"
@@ -57,7 +57,7 @@ const Notification = ({
 
       {/* Notification Dropdown */}
       {isNotifOpen && (
-        <div className="absolute right-0 z-20 mt-2 w-80 rounded-2xl border border-zinc-200 bg-white p-2 shadow-lg">
+        <div className="absolute right-0 z-50 mt-2 w-80 rounded-2xl border border-zinc-200 bg-white p-2 shadow-lg">
           {/* Header */}
           <div className="flex items-center justify-between px-2 py-1">
             <div className="text-md font-semibold text-zinc-700">

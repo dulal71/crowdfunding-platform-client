@@ -82,11 +82,7 @@ return  Math.min(100, Math.round((raised / goal) * 100))
     </span>
   )}
 
-  {status && (
-    <span className={`absolute top-3.5 right-3.5 text-[11px] font-bold px-3 py-1.5 rounded-full ${statusClass}`}>
-      {status.charAt(0).toUpperCase() + status.slice(1)}
-    </span>
-  )}
+
 </div>
 
       {/* Body */}

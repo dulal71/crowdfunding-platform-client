@@ -31,12 +31,8 @@ export function DashboardNavbar({user, notifications = [] }: DashboardNavbarProp
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
- 
-
-
-
-  return (
-    <header className="border-b border-zinc-200 bg-white backdrop-blur">
+ return (
+    <header className="relative border-b border-zinc-200 bg-white backdrop-blur z-50">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <div className="flex min-w-0 items-center">
           <Logo />
