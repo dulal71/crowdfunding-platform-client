@@ -11,9 +11,11 @@ const CampaignsPage = async () => {
 
   return (
     <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 p-5">
       {campaigns.map((campaign:ICampaign) => (
         <CampaignCard key={campaign._id} campaign={campaign}></CampaignCard>
       ))}
+    </div>
     </div>
   );
 };

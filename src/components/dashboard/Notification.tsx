@@ -1,9 +1,11 @@
 "use client";
 
+import deleteNotification from "@/app/lib/service/deleteNotification";
 import { INotification } from "@/types/campaign";
 import Link from "next/link";
 import { useEffect } from "react";
 import { AiOutlineBell, AiOutlineClose } from "react-icons/ai";
+import { RiDeleteBinLine } from "react-icons/ri";
 
 type NotificationProps = {
   isNotifOpen: boolean;
@@ -36,14 +38,22 @@ const Notification = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [notifRef, setIsNotifOpen]);
-
+  
+  const handleDelete = async (id: string) => {
+  try {
+  const res =  await deleteNotification(id);
+  console.log(res);
+  } catch (error) {
+    console.log(error);
+  }
+};
   return (
     <div ref={notifRef} className="relative z-50">
       {/* Notification Button */}
       <button
         type="button"
         aria-label="Notifications"
-        onClick={() => setIsNotifOpen((prev) => !prev)}
+        onClick={()=>setIsNotifOpen((prev) => !prev)}
         className="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-zinc-600 transition hover:bg-zinc-50"
       >
         <AiOutlineBell className="text-xl" />
@@ -101,11 +111,9 @@ const Notification = ({
           ) : (
             <div className="max-h-80 overflow-y-auto">
               {notifications.map((n) => (
-                <Link
-                  key={n._id}
-                  href={`/dashboard/admin/campaigns/${n.campaignId}`}
-                  className="block border-b px-2 py-3 transition last:border-b-0 hover:bg-zinc-50"
-                >
+                <div  key={n._id} className=" flex items-center justify-between border-b px-2 py-3 transition last:border-b-0 hover:bg-zinc-50">
+                  <Link 
+                  href={`/dashboard/admin/campaigns/${n.campaignId}`}>
                   <div className="flex items-center justify-between gap-2">
                     <p className="font-medium text-zinc-800">
                       {n.title}
@@ -115,14 +123,28 @@ const Notification = ({
                       <span className="h-2 w-2 shrink-0 rounded-full bg-green-600" />
                     )}
                   </div>
-
-                  <p className="mt-1 text-[13px] text-zinc-700">
+                  <div className="flex justify-between items-center">
+                     <p className="mt-1 text-[13px] text-zinc-700">
                     {n.message.split(/\s+/).slice(0, 3).join(" ")}
                     {n.message.trim().split(/\s+/).length > 3
                       ? "..."
                       : ""}
                   </p>
-                </Link>
+                  
+                  </div>
+                  </Link>
+                      <button
+      type="button"
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleDelete(n._id);
+      }}
+      className="cursor-pointer p-1"
+    >
+      <RiDeleteBinLine className="text-red-500" />
+    </button>
+                </div>
               ))}
             </div>
           )}
