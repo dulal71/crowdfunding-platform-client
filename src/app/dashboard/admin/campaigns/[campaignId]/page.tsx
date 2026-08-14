@@ -11,7 +11,7 @@ type Props = {
 const CampaignDetailsPage = async ({ params }: Props) => {
   const { campaignId } = await params;
   const { data: campaign } = await getCampaignById(campaignId);
-     console.log(campaign);
+    
   if (!campaign) {
     return (
       <div className="p-10">

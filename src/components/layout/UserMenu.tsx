@@ -40,7 +40,7 @@ export function UserMenu({
     >
       <button
         type="button"
-        className="flex items-center gap-2 rounded-full px-2 py-1 text-sm font-medium text-zinc-700 shadow transition hover:bg-zinc-50"
+        className="flex items-center gap-2 rounded-full px-2 py-1 text-sm font-medium text-white bg-linear-to-r from-cyan-600 via-blue-500 to-indigo-600 shadow transition hover:bg-zinc-50"
       >
         <Avatar>
           <Avatar.Image alt={user.name} src={user.image} />

@@ -15,7 +15,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   
 console.log(user);
 const {data:notifications}=await getNotification(user.id)
-  console.log(notifications);
+  
 
   return (
     <div className="min-h-screen flex flex-col">

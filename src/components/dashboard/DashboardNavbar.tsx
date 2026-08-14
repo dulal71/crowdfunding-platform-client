@@ -25,7 +25,7 @@ type DashboardNavbarProps = {
 
 export function DashboardNavbar({user, notifications = [] }: DashboardNavbarProps) {
 
-   console.log(notifications);
+  
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const notifRef = useRef<HTMLDivElement>(null);
 

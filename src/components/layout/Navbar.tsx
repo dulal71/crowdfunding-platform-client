@@ -56,10 +56,13 @@ export function Navbar() {
         {/* Desktop Nav Links */}
         <nav className="hidden md:flex items-center gap-6">
           <Link href="/" className={navLinkClass("/")}>
-            Home
+            HOME
           </Link>
           <Link href="/campaigns" className={navLinkClass("/campaigns")}>
-            Explore Campaigns
+            EXPLORE CAMPAIGNS
+          </Link>
+          <Link href="/about" className={navLinkClass("/about")}>
+            ABOUT
           </Link>
         </nav>
 
@@ -67,10 +70,10 @@ export function Navbar() {
         <div className="hidden md:flex md:items-center md:gap-4">
           {!user ? (
             <>
-              <Link href="/login" className={navLinkClass("/login")}>
+              <Link href="/login" className="border border-black px-2 py-0.5 text-black rounded-full transition-all duration-500 hover:bg-red-700 hover:text-white ">
                 Login
               </Link>
-              <Link href="/register" className={navLinkClass("/register")}>
+              <Link href="/register" className="shadow rounded-full px-3 py-0.5 bg-linear-to-r from-cyan-800 to-violet-500">
                 Register
               </Link>
             </>

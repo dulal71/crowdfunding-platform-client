@@ -1,7 +1,11 @@
 "use client";
 
-import { useState } from "react";
+
 import { ICampaign } from "@/types/campaign";
+import Link from "next/link";
+import updateStatus from "@/app/lib/service/updateStatus";
+import toast from "react-hot-toast";
+
 
 interface CampaignsTableProps {
   campaigns: ICampaign[];
@@ -21,17 +25,24 @@ const statusBadgeStyles: Record<string, string> = {
 };
 
 const CampaignsTable = ({ campaigns }: CampaignsTableProps) => {
-  const [activatingId, setActivatingId] = useState<string | null>(null);
 
-  // Placeholder handler — wire this up to your existing activate API call
-  const handleActivate = async (id: string) => {
-    setActivatingId(id);
+   
+
+  const handleStatus = async (id: string,status:string) => {
+   
     try {
-      // TODO: call your activate campaign API here
-      // await activateCampaign(id);
-    } finally {
-      setActivatingId(null);
-    }
+      const res =   await updateStatus(id,status)
+if(res.data.modifiedCount >0){
+toast.success(
+        status === "active"
+          ? "Campaign activated successfully!"
+          : "Campaign deactivated successfully!"
+      );  
+}
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to activate campaign. Please try again.");
+    } 
   };
 
   if (!campaigns || campaigns.length === 0) {
@@ -120,20 +131,29 @@ const CampaignsTable = ({ campaigns }: CampaignsTableProps) => {
                 {/* Action column — Activate button only for pending, View always */}
                 <td className="px-4 py-3">
                   <div className="flex items-center justify-center gap-2">
-                    {campaign.status === "pending" && (
+                    {campaign.status === "pending" ? 
+                    (
                       <button
-                        onClick={() => handleActivate(campaign._id)}
-                        disabled={activatingId === campaign._id}
+                        onClick={() => handleStatus(campaign._id,"active")}
+
                         className="rounded-md bg-cyan-600 px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-cyan-700 disabled:opacity-60"
                       >
-                        {activatingId === campaign._id
-                          ? "Activating..."
-                          : "Activate"}
+                      Activate
                       </button>
-                    )}
-                    <button className="text-xs font-medium text-cyan-600 hover:text-cyan-700">
+                    ) :  (
+                      <button
+                        onClick={() => handleStatus(campaign._id,"pending")}
+
+                        className="rounded-md bg-red-700 px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-red-900 disabled:opacity-60"
+                      >
+                     Deactivate
+                      </button>
+                    )
+                  }
+                   
+                    <Link href={`/dashboard/admin/campaigns/${campaign._id}`} className="text-xs font-medium text-cyan-600 hover:text-cyan-700">
                       View
-                    </button>
+                    </Link>
                   </div>
                 </td>
               </tr>

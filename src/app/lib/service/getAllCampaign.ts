@@ -7,7 +7,6 @@ const getAllCampaign =async (status="" ): Promise<CampaignResponse> => {
  const result=  await getData(`/api/v1/campaigns?status=${status}`)
  return result
 };
-
 export default getAllCampaign;
 
 
