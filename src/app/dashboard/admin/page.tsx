@@ -1,5 +1,6 @@
-import { RoleDashboardHome } from "@/components/dashboard/RoleDashboardHome";
+import AdminDashboard from "@/components/admin/AdminDashboard";
+
 
 export default function AdminHomePage() {
-  return <RoleDashboardHome role="admin" />;
+  return <AdminDashboard></AdminDashboard>
 }
