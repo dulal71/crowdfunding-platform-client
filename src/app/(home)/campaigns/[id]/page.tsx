@@ -2,23 +2,18 @@ import { getCampaignById } from "@/app/lib/service/getAllCampaign";
 import CampaignStatusButton from "@/components/admin/CampaignStatusButton ";
 import Image from "next/image";
 import { ICampaign } from "@/types/campaign";
+import ContributeButton from "@/components/supporter/ContributeButton";
 
 type Props = {
   params: Promise<{
-    campaignId: string;
+    id: string;
   }>;
 };
 
 const CampaignDetailsPage = async ({ params }: Props) => {
-  const { campaignId } = await params;
-
-  let campaign: ICampaign | null = null;
-  try {
-    const response = await getCampaignById(campaignId);
-    campaign = response?.data ?? null;
-  } catch {
-    campaign = null;
-  }
+  const { id } = await params;
+const {data:campaign} = await getCampaignById(id);
+    
 
   if (!campaign) {
     return (
@@ -45,7 +40,7 @@ const CampaignDetailsPage = async ({ params }: Props) => {
     user_name,
     user_email,
   } = campaign;
-
+console.log(campaign);
   const progressPercent = Math.min(
     100,
     Math.round((funded_amount / funding_goal) * 100)
@@ -73,14 +68,14 @@ const CampaignDetailsPage = async ({ params }: Props) => {
 
       {/* Header */}
       <div className="flex flex-wrap items-center gap-3 mb-2">
-        <span className="text-xs font-medium px-3 py-1 rounded-full bg-blue-100 text-blue-700">
+        <span className="text-xs font-medium px-3 py-1 rounded-full bg-white text-primary border border-primary-light">
           {category}
         </span>
         <span
           className={`text-xs font-medium px-3 py-1 rounded-full ${
             status === "pending"
               ? "bg-yellow-100 text-yellow-700"
-              : status === "approved"
+              : status === "active"
               ? "bg-green-100 text-green-700"
               : "bg-gray-100 text-gray-700"
           }`}
@@ -89,7 +84,7 @@ const CampaignDetailsPage = async ({ params }: Props) => {
         </span>
       </div>
 
-      <h1 className="text-3xl text-black md:text-4xl font-bold mb-2">
+      <h1 className="text-3xl text-primary md:text-4xl font-bold mb-2">
         {campaign_title}
       </h1>
 
@@ -107,30 +102,30 @@ const CampaignDetailsPage = async ({ params }: Props) => {
       <div className="mb-8">
         <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
           <div
-            className="h-full bg-blue-600 rounded-full transition-all"
+            className="h-full bg-primary rounded-full transition-all"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
 
         <div className="flex justify-between mt-2 text-sm text-gray-600">
           <span>
-            <span className="font-semibold text-gray-900">
-              ${funded_amount.toLocaleString()}
+            <span className="font-semibold text-primary-light">
+              ${funded_amount}
             </span>{" "}
-            raised of ${funding_goal.toLocaleString()}
+            raised of <span className="text-primary-light">${funding_goal}</span>
           </span>
-          <span>{progressPercent}% funded</span>
+          <span><span className="text-primary-light"> {progressPercent}%</span> funded</span>
         </div>
 
         <div className="flex justify-between mt-1 text-sm text-gray-600">
-          <span>Minimum contribution: ${minimum_Contribution}</span>
-          <span>{daysLeft} days left</span>
+          <span>Minimum contribution: <span className="text-primary-light">${minimum_Contribution}</span></span>
+          <span><span className="text-primary-light">{daysLeft}</span> days left</span>
         </div>
       </div>
 
       {/* Story */}
       <section className="mb-8">
-        <h2 className="text-xl text-black font-semibold mb-2">Campaign Story</h2>
+        <h2 className="text-xl text-primary font-semibold mb-2">Campaign Story</h2>
         <p className="text-gray-700 leading-relaxed whitespace-pre-line">
           {campaign_story}
         </p>
@@ -138,14 +133,14 @@ const CampaignDetailsPage = async ({ params }: Props) => {
 
       {/* Reward */}
       {reward_info && (
-        <section className="mb-8 bg-gray-50 border border-gray-200 rounded-lg p-4">
-          <h2 className="text-lg text-black font-semibold mb-1">Reward</h2>
+        <section className="mb-8 bg-gray-50 border border-primary-light rounded-lg p-4">
+          <h2 className="text-lg text-primary font-semibold mb-1">Reward</h2>
           <p className="text-gray-700">{reward_info}</p>
         </section>
       )}
 
       
-  <CampaignStatusButton campaignId={campaign._id} initialStatus={campaign.status}></CampaignStatusButton>
+<ContributeButton minimumAmount={minimum_Contribution} />
     </div>
   );
 };

@@ -10,6 +10,7 @@ import { FiMessageCircle } from "react-icons/fi";
 
 import { IconBase } from "react-icons";
 import { BsTwitter } from "react-icons/bs";
+import Link from "next/link";
 
 type CampaignStatus = "pending" | "active" | "closed" | string;
 
@@ -62,10 +63,10 @@ return  Math.min(100, Math.round((raised / goal) * 100))
      
   
   const remainingDays = daysLeft(deadline);
-  const statusClass = status ? STATUS_STYLES[status] ?? STATUS_STYLES.pending : "";
+
 
   return (
-    <div className="w-full max-w-sm mx-auto bg-linear-to-t from-sky-50 to-white rounded-[22px] overflow-hidden shadow-lg shadow-cyan-900/10 ">
+    <div className="w-full max-w-sm mx-auto bg-white rounded-[22px] overflow-hidden shadow-lg shadow-primary-light/20 ">
       {/* Hero image */}
       <div className="relative">
   <Image
@@ -77,7 +78,7 @@ return  Math.min(100, Math.round((raised / goal) * 100))
   />
 
   {category && (
-    <span className="absolute top-3.5 left-3.5 bg-white/95 text-cyan-950 text-[11px] font-bold uppercase tracking-wide px-3 py-1.5 rounded-full shadow">
+    <span className="absolute top-3.5 left-3.5 bg-white/95 text-accent text-[11px] font-bold uppercase tracking-wide px-3 py-1.5 rounded-full shadow">
       {category}
     </span>
   )}
@@ -88,7 +89,7 @@ return  Math.min(100, Math.round((raised / goal) * 100))
       {/* Body */}
       <div className="px-5 pt-4 pb-5">
         {campaign_title && (
-          <h3 className="font-serif text-xl font-semibold leading-snug text-cyan-950 mb-2">
+          <h3 className="font-serif text-xl font-semibold leading-snug text-primary mb-2">
             {campaign_title}
           </h3>
         )}
@@ -101,7 +102,7 @@ return  Math.min(100, Math.round((raised / goal) * 100))
             <button
               type="button"
               onClick={() => setExpanded((e) => !e)}
-              className="text-cyan-600 text-xs font-semibold py-1.5 hover:text-cyan-700"
+              className="text-primary-light text-xs font-semibold py-1.5 hover:text-cyan-700"
             >
               {expanded ? "Show less" : "Read more"}
             </button>
@@ -113,7 +114,7 @@ return  Math.min(100, Math.round((raised / goal) * 100))
           <div className="flex flex-wrap gap-4 mb-3.5">
             {deadline && (
               <div className="flex items-center gap-1.5 text-xs text-slate-600">
-                <CgLock size={15} className="text-cyan-600" />
+                <CgLock size={15} className="text-accent" />
                 {remainingDays !== null && remainingDays > 0
                   ? `${remainingDays} days left`
                   : "Deadline passed"}
@@ -121,7 +122,7 @@ return  Math.min(100, Math.round((raised / goal) * 100))
             )}
             {minimum_Contribution != null && (
               <div className="flex items-center gap-1.5 text-xs text-slate-600">
-                <BiCoinStack size={15} className="text-cyan-600" />
+                <BiCoinStack size={15} className="text-accent" />
                 Min. {formatMoney(minimum_Contribution)} credits
               </div>
             )}
@@ -129,7 +130,7 @@ return  Math.min(100, Math.round((raised / goal) * 100))
         )}
 
         {reward_info && (
-          <div className="bg-emerald-50 border border-emerald-100 rounded-xl px-3 py-2.5 text-xs text-emerald-800 leading-relaxed mb-4">
+          <div className="bg- border border-emerald-100 rounded-xl px-3 py-2.5 text-xs text-emerald-800 leading-relaxed mb-4">
              {reward_info}
           </div>
         )}
@@ -140,16 +141,21 @@ return  Math.min(100, Math.round((raised / goal) * 100))
             {[FaFacebook, BsTwitter, FiMessageCircle].map((Icon, i) => (
               <span
                 key={i}
-                className="w-[34px] h-[34px] rounded-full bg-white border border-slate-200 flex items-center justify-center cursor-pointer hover:bg-slate-50"
+                className="w-[34px] h-[34px] rounded-full bg-white border border-primary flex items-center justify-center cursor-pointer hover:bg-slate-50"
               >
                 <Icon size={15} className="text-cyan-950" />
               </span>
             ))}
           </div>
-
+          <Link href={`/campaigns/${campaign._id}`}
+            
+            className="border-[1.5px] border-info text-info font-bold text-xs px-[18px] py-2 rounded-full hover:bg-blue-900 hover:text-white transition-colors"
+          >
+            Details
+          </Link>
           <button
             type="button"
-            className="border-[1.5px] border-rose-900 text-rose-700 font-bold text-xs px-[18px] py-2 rounded-full hover:bg-rose-900 hover:text-white transition-colors"
+            className="border-[1.5px] border-primary text-primary font-bold text-xs px-[18px] py-2 rounded-full hover:bg-primary-light hover:text-white transition-colors"
           >
             Donate Now
           </button>

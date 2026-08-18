@@ -36,7 +36,7 @@ const AdminDashboard = async () => {
   return (
     <div className="space-y-6">
       <section className="rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm">
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-600">
+        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-rose-600">
           Dashboard
         </p>
         <h1 className="mt-3 text-3xl font-semibold text-zinc-900">

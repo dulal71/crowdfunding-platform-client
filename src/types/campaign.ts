@@ -1,15 +1,20 @@
+export type CampaignStatus = "pending" | "active" | "approved" | "rejected" | "closed";
+
 export type ICampaign = {
-  _id:string,
+  _id: string;
   campaign_title: string;
   campaign_story: string;
   category: string;
   funding_goal: number;
-  funded_amount:number;
+  funded_amount: number;
   minimum_Contribution: number;
   deadline: string;
   reward_info: string;
   campaign_image_url: string;
-  status: "pending";
+  status: CampaignStatus;
+  createdAt?: string;
+  user_name?: string;
+  user_email?: string;
 };
 
 export type CampaignResponse = {
@@ -22,6 +27,12 @@ export type CampaignResponse = {
     pending: number;
     completed: number;
   };
+};
+
+export type CampaignByIdResponse = {
+  success: boolean;
+  message?: string;
+  data: ICampaign;
 };
 
 
