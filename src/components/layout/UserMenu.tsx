@@ -34,17 +34,19 @@ export function UserMenu({
 
   return (
     <div
-      className="relative z-999"
+      className="relative z-999 "
       onMouseEnter={openMenu}
       onMouseLeave={scheduleClose}
     >
       <button
         type="button"
-        className="flex items-center gap-2 rounded-full px-2 py-1 text-sm font-medium text-white bg-linear-to-r from-cyan-600 via-blue-500 to-indigo-600 shadow transition hover:bg-zinc-50"
+        className="flex items-center gap-2 rounded-full px-2 py-1 text-sm font-medium text-primary-light border border-primary-light shadow-primary-light transition hover:bg-zinc-50"
       >
         <Avatar>
           <Avatar.Image alt={user.name} src={user.image} />
-          <Avatar.Fallback>{user.name}</Avatar.Fallback>
+<Avatar.Fallback className="bg-primary text-white font-extrabold">
+  {user.name.charAt(0).toUpperCase() + user.name.charAt(1).toUpperCase()}
+</Avatar.Fallback>
         </Avatar>
         <span>{user.name}</span>
         <motion.span
@@ -63,7 +65,7 @@ export function UserMenu({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.97 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute right-0 top-full z-50 mt-2 w-56 origin-top-right rounded-xl border border-zinc-200 bg-white py-2 shadow-lg"
+            className="absolute right-0 top-full z-50 mt-2 w-56 origin-top-right rounded-xl border border-primary-light bg-white py-2 shadow-lg"
             onMouseEnter={openMenu}
             onMouseLeave={scheduleClose}
           >
@@ -71,10 +73,10 @@ export function UserMenu({
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-2 px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50"
+                className="flex items-center gap-2 px-4 py-2 text-sm text-text hover:bg-primary/5"
                 onClick={() => setIsOpen(false)}
               >
-                <item.icon className="h-4 w-4 text-zinc-500" />
+                <item.icon className="h-4 w-4 text-primary-light" />
                 {item.label}
               </Link>
             ))}
@@ -84,7 +86,7 @@ export function UserMenu({
               disabled={isLoggingOut}
               className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-zinc-700 hover:bg-zinc-50 disabled:opacity-60"
             >
-              <FiLogOut className="h-4 w-4 text-zinc-500" />
+              <FiLogOut className="h-4 w-4 text-primary-light" />
               {isLoggingOut ? "Signing out..." : "Sign out"}
             </button>
           </motion.div>

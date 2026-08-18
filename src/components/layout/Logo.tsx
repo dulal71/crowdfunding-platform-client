@@ -34,15 +34,15 @@ export function Logo({
     repeat: Infinity,
     ease: "linear",
   }}
-  className={`${unbounded.className}
-    bg-[linear-gradient(90deg,#0ea5e9,#06b6d4,#6366f1,#0ea5e9)]
-    bg-[length:300%_300%]
-    bg-clip-text
-    text-transparent
-    text-2xl
-    font-bold`}
+ className={`${unbounded.className}
+  bg-[linear-gradient(90deg,var(--color-primary),var(--color-primary-light),var(--color-accent))]
+  bg-[length:300%_300%]
+  bg-clip-text
+  text-transparent
+  text-2xl
+  font-bold`}
 >
-  CROWDNEST
+  CROWDLAUNCH
 </motion.span>
 
       <motion.div

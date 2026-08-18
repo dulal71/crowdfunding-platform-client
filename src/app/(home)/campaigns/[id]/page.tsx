@@ -3,6 +3,8 @@ import CampaignStatusButton from "@/components/admin/CampaignStatusButton ";
 import Image from "next/image";
 import { ICampaign } from "@/types/campaign";
 import ContributeButton from "@/components/supporter/ContributeButton";
+import { FaArrowRightLong } from "react-icons/fa6";
+import Link from "next/link";
 
 type Props = {
   params: Promise<{
@@ -54,9 +56,32 @@ console.log(campaign);
   );
 
   return (
-    <div className="max-w-4xl mx-auto p-6 md:p-10">
-      {/* Image */}
-      <div className="relative w-full h-72 md:h-96 rounded-xl overflow-hidden mb-6">
+    <div className="max-w-6xl  mx-auto p-6 md:p-5 space-y-8">
+       
+       
+       <div className="flex items-center justify-center ">
+  <div className="flex items-center gap-2 text-sm">
+    <Link href={'/'} className="font-medium text-text-muted hover:text-primary cursor-pointer transition-colors">
+      Home
+    </Link>
+
+    <FaArrowRightLong className="text-primary-light text-xs" />
+
+    <Link href={'/campaigns'} className="font-medium text-text-muted hover:text-primary cursor-pointer transition-colors">
+      Explore Campaigns
+    </Link>
+
+    <FaArrowRightLong className="text-primary-light text-xs" />
+
+    <span className="font-semibold text-primary">
+      Details Page
+    </span>
+  </div>
+</div>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-2  lg:gap-10">
+         {/* Image */}
+        <div className="relative w-full h-72 md:h-96 rounded-xl overflow-hidden mb-6">
         <Image
           src={campaign_image_url}
           alt={campaign_title}
@@ -65,8 +90,8 @@ console.log(campaign);
           priority
         />
       </div>
-
-      {/* Header */}
+    <div>
+         {/* Header */}
       <div className="flex flex-wrap items-center gap-3 mb-2">
         <span className="text-xs font-medium px-3 py-1 rounded-full bg-white text-primary border border-primary-light">
           {category}
@@ -107,7 +132,7 @@ console.log(campaign);
           />
         </div>
 
-        <div className="flex justify-between mt-2 text-sm text-gray-600">
+        <div className="flex justify-between mt-2 text-sm text-text">
           <span>
             <span className="font-semibold text-primary-light">
               ${funded_amount}
@@ -117,7 +142,7 @@ console.log(campaign);
           <span><span className="text-primary-light"> {progressPercent}%</span> funded</span>
         </div>
 
-        <div className="flex justify-between mt-1 text-sm text-gray-600">
+        <div className="flex justify-between mt-1 text-sm text-text">
           <span>Minimum contribution: <span className="text-primary-light">${minimum_Contribution}</span></span>
           <span><span className="text-primary-light">{daysLeft}</span> days left</span>
         </div>
@@ -126,7 +151,7 @@ console.log(campaign);
       {/* Story */}
       <section className="mb-8">
         <h2 className="text-xl text-primary font-semibold mb-2">Campaign Story</h2>
-        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+        <p className="text-text-muted leading-relaxed whitespace-pre-line">
           {campaign_story}
         </p>
       </section>
@@ -135,12 +160,16 @@ console.log(campaign);
       {reward_info && (
         <section className="mb-8 bg-gray-50 border border-primary-light rounded-lg p-4">
           <h2 className="text-lg text-primary font-semibold mb-1">Reward</h2>
-          <p className="text-gray-700">{reward_info}</p>
+          <p className="text-text-muted">{reward_info}</p>
         </section>
       )}
 
       
 <ContributeButton minimumAmount={minimum_Contribution} />
+    </div>
+      </div>
+      
+      
     </div>
   );
 };

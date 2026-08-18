@@ -55,19 +55,17 @@ export function DashboardSidebar({
 
   const sidebarContent = (
     <div
-      className={`flex h-full flex-col rounded-2xl bg-linear-to-t from-sky-50 to-white p-4 shadow-md transition-[width] duration-200 ${
+      className={`flex h-full flex-col rounded-2xl bg-linear-to-t from-primary/10 to-white p-4 shadow-md transition-[width] duration-200 ${
         collapsed ? "w-20" : "w-64"
       }`}
     >
       {/* Logo + collapse toggle */}
       <div className="mb-4 flex items-center justify-between px-1">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-zinc-900 text-sm font-bold text-white">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-primary text-sm font-bold text-white">
             {user.name.charAt(0).toUpperCase()}
           </div>
-          {showLabel && (
-            <span className="text-lg font-semibold text-zinc-900">CrowdLaunch</span>
-          )}
+          
         </div>
 
         {/* Desktop: collapse/expand toggle */}
@@ -75,7 +73,7 @@ export function DashboardSidebar({
           type="button"
           onClick={() => setCollapsed((prev) => !prev)}
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          className="hidden h-7 w-7 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-100 md:flex"
+          className="hidden h-7 w-7 items-center justify-center rounded-full text-accent hover:bg-zinc-100 md:flex"
         >
           {collapsed ? <FiChevronRight size={14} /> : <FiChevronLeft size={14} />}
         </button>
@@ -93,18 +91,18 @@ export function DashboardSidebar({
 
       {/* Search */}
       <div
-        className={`mb-4 flex items-center gap-2 rounded-2xl bg-zinc-50 px-3 py-2.5 ${
-          collapsed ? "justify-center px-2" : ""
+        className={`mb-4 flex items-center gap-2 rounded-2xl bg-zinc-50 border border-primary-light px-3 py-2.5 ${
+          collapsed ? "justify-center px-2 border-0" : ""
         }`}
       >
-        <FiSearch size={16} className="shrink-0 text-zinc-400" />
+        <FiSearch size={16} className="shrink-0 text-accent" />
         {showLabel && (
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search"
-            className="w-full bg-transparent text-sm text-zinc-700 placeholder:text-zinc-400 focus:outline-none"
+            className="w-full bg-transparent text-sm text-text-muted placeholder:text-zinc-400 focus:outline-none"
           />
         )}
       </div>
@@ -129,14 +127,14 @@ export function DashboardSidebar({
               title={collapsed ? item.label : undefined}
               className={`group flex items-center rounded-2xl px-3 py-2.5 text-sm font-medium transition ${
                 isActive
-                  ? "bg-zinc-900 text-white"
-                  : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900"
+                  ? "bg-primary text-white"
+                  : "text-text-muted hover:bg-primary-light hover:text-white"
               } ${collapsed ? "justify-center px-2" : "justify-between"}`}
             >
               <span className={`flex items-center ${collapsed ? "" : "gap-3"}`}>
                 <Icon
                   size={17}
-                  className={`shrink-0 ${isActive ? "text-white" : "text-zinc-400 group-hover:text-zinc-600"}`}
+                  className={`shrink-0 ${isActive ? "text-white" : "text-accent group-hover:text-primary-light"}`}
                 />
                 {showLabel && item.label}
               </span>
@@ -164,7 +162,7 @@ export function DashboardSidebar({
             collapsed ? "justify-center px-2" : "gap-3"
           }`}
         >
-          <FiSettings size={17} className="shrink-0 text-zinc-400" />
+          <FiSettings size={17} className="shrink-0 text-accent" />
           {showLabel && "Settings"}
         </Link>
         <button
@@ -174,7 +172,7 @@ export function DashboardSidebar({
             collapsed ? "justify-center px-2" : "gap-3"
           }`}
         >
-          <FiLogOut size={17} className="shrink-0 text-zinc-400" />
+          <FiLogOut size={17} className="shrink-0 text-accent" />
           {showLabel && "Logout"}
         </button>
       </div>
@@ -189,7 +187,7 @@ export function DashboardSidebar({
               theme === "light" ? "bg-white text-zinc-900 shadow-sm" : "text-zinc-400"
             }`}
           >
-            <FiSun size={14} />
+            <FiSun size={14} className="text-accent" />
             Light
           </button>
           <button
@@ -210,7 +208,7 @@ export function DashboardSidebar({
           aria-label="Toggle theme"
           className="mt-3 flex items-center justify-center rounded-2xl bg-zinc-50 p-2.5 text-zinc-500 hover:bg-zinc-100"
         >
-          {theme === "light" ? <FiSun size={16} /> : <FiMoon size={16} />}
+          {theme === "light" ? <FiSun size={16} className="text-accent" /> : <FiMoon size={16} />}
         </button>
       )}
 
@@ -220,17 +218,8 @@ export function DashboardSidebar({
           collapsed ? "justify-center" : ""
         }`}
       >
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-sm font-semibold text-white">
-          {user.name.charAt(0).toUpperCase()}
-        </div>
-        {showLabel && (
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-semibold text-zinc-900">{user.name}</p>
-            {user.email ? (
-              <p className="truncate text-xs text-zinc-400">{user.email}</p>
-            ) : null}
-          </div>
-        )}
+        
+       
       </div>
     </div>
   );

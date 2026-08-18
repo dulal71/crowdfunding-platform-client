@@ -27,7 +27,7 @@ export function Navbar() {
 
   const navLinkClass = (href: string) =>
     `text-md font-medium transition ${
-      isActiveLink(href) ? "text-cyan-600" : "text-zinc-600 hover:text-zinc-900"
+      isActiveLink(href) ? "text-primary" : "text-text hover:text-primary-light"
     }`;
 
   const closeMenu = () => setIsMenuOpen(false);

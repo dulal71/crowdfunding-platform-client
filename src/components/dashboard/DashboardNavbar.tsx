@@ -6,6 +6,8 @@ import { Logo } from "../layout/Logo";
 import { INotification } from "@/types/campaign";
 
 import Notification from "./Notification";
+import { TbCredits } from "react-icons/tb";
+import { FaCreditCard } from "react-icons/fa";
 
 
 type DashboardUser = {
@@ -40,10 +42,10 @@ export function DashboardNavbar({user, notifications = [] }: DashboardNavbarProp
 
         <div className="flex items-center gap-3 sm:gap-4">
           {/* Available Credits */}
-          <span className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-sm font-semibold text-zinc-700">
-            <span className="inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
-            <span className="text-red-500">{user.credits}</span>
-            <span className="hidden text-zinc-500 sm:inline">Credits</span>
+          <span className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-primary-light px-3 py-1.5 text-sm font-semibold ">
+            <FaCreditCard className="text-accent" />
+            <span className="text-accent">{user.credits}</span>
+            <span className="hidden text-text sm:inline">Credits</span>
           </span>
 
           {/* Notifications */}

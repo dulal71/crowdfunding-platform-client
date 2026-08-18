@@ -96,7 +96,7 @@ return  Math.min(100, Math.round((raised / goal) * 100))
 
         {campaign_story && (
           <>
-            <p className={`text-sm text-slate-600 leading-relaxed ${expanded ? "" : "line-clamp-2"}`}>
+            <p className={`text-sm text-text leading-relaxed ${expanded ? "" : "line-clamp-2"}`}>
               {campaign_story}
             </p>
             <button
@@ -113,7 +113,7 @@ return  Math.min(100, Math.round((raised / goal) * 100))
         {(deadline || minimum_Contribution != null) && (
           <div className="flex flex-wrap gap-4 mb-3.5">
             {deadline && (
-              <div className="flex items-center gap-1.5 text-xs text-slate-600">
+              <div className="flex items-center gap-1.5 text-xs text-text">
                 <CgLock size={15} className="text-accent" />
                 {remainingDays !== null && remainingDays > 0
                   ? `${remainingDays} days left`
@@ -121,16 +121,16 @@ return  Math.min(100, Math.round((raised / goal) * 100))
               </div>
             )}
             {minimum_Contribution != null && (
-              <div className="flex items-center gap-1.5 text-xs text-slate-600">
+              <div className="flex items-center gap-1.5 text-xs text-text">
                 <BiCoinStack size={15} className="text-accent" />
-                Min. {formatMoney(minimum_Contribution)} credits
+                Min. <strong className="text-primary-light">{formatMoney(minimum_Contribution)}</strong> credits
               </div>
             )}
           </div>
         )}
 
         {reward_info && (
-          <div className="bg- border border-emerald-100 rounded-xl px-3 py-2.5 text-xs text-emerald-800 leading-relaxed mb-4">
+          <div className="bg-info/10 rounded-xl px-3 py-2.5 text-xs text-text-muted leading-relaxed mb-4">
              {reward_info}
           </div>
         )}
@@ -143,7 +143,7 @@ return  Math.min(100, Math.round((raised / goal) * 100))
                 key={i}
                 className="w-[34px] h-[34px] rounded-full bg-white border border-primary flex items-center justify-center cursor-pointer hover:bg-slate-50"
               >
-                <Icon size={15} className="text-cyan-950" />
+                <Icon size={15} className="text-accent" />
               </span>
             ))}
           </div>
@@ -155,7 +155,7 @@ return  Math.min(100, Math.round((raised / goal) * 100))
           </Link>
           <button
             type="button"
-            className="border-[1.5px] border-primary text-primary font-bold text-xs px-[18px] py-2 rounded-full hover:bg-primary-light hover:text-white transition-colors"
+            className="border-[1.5px] border-primary text-primary font-bold text-xs px-[18px] py-2 rounded-full hover:bg-primary-light hover:text-white transition-colors cursor-pointer"
           >
             Donate Now
           </button>
@@ -163,13 +163,13 @@ return  Math.min(100, Math.round((raised / goal) * 100))
 
         {/* Progress */}
         {funding_goal != null && (
-          <div className="bg-orange-50 rounded-2xl px-3.5 py-3">
-            <div className="flex justify-between text-sm text-cyan-950 mb-2">
+          <div className="bg-info/10 rounded-2xl px-3.5 py-3">
+            <div className="flex justify-between text-sm text-text mb-2">
               <span>
-                Raised <strong>${formatMoney(raised)}</strong>
+                Raised <strong className="text-primary-light">${formatMoney(raised)}</strong>
               </span>
               <span>
-                Goal: <strong>${formatMoney(funding_goal)}</strong>
+                Goal: <strong className="text-primary-light">${formatMoney(funding_goal)}</strong>
               </span>
             </div>
             <div className="h-2.5 w-full bg-white rounded-full overflow-hidden">
@@ -178,13 +178,13 @@ return  Math.min(100, Math.round((raised / goal) * 100))
                   ${
       pct >= 100
         ? "bg-red-500"
-        : "bg-gradient-to-r from-cyan-600 to-sky-400"
+        : "bg-primary-light"
     }
                   `}
                 style={{ width: `${pct}%` }}
               />
             </div>
-            <div className="text-[11.5px] text-slate-600 font-semibold mt-1.5">{pct}% funded</div>
+            <div className="text-[11.5px] text-primary-light font-semibold mt-1.5">{pct}% funded</div>
           </div>
         )}
       </div>

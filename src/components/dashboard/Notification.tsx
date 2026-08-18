@@ -56,7 +56,7 @@ const Notification = ({
         onClick={()=>setIsNotifOpen((prev) => !prev)}
         className="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-zinc-600 transition hover:bg-zinc-50"
       >
-        <AiOutlineBell className="text-xl" />
+        <AiOutlineBell className="text-xl text-accent" />
 
         {unreadCount > 0 && (
           <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">

@@ -73,8 +73,8 @@ export default function LoginPage() {
         className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur"
       >
         <div className="mb-6">
-          <p className="text-sm uppercase tracking-[0.3em] text-cyan-400">Welcome back</p>
-          <h1 className="mt-2 text-2xl font-semibold text-black">Sign in to your account</h1>
+          <p className="text-sm uppercase tracking-[0.3em] text-primary">Welcome back</p>
+          <h1 className="mt-2 text-2xl font-semibold text-primary">Sign in to your account</h1>
           <p className="mt-2 text-sm text-zinc-700">
             Access your dashboard, campaigns, and credits securely.
           </p>
@@ -85,7 +85,7 @@ export default function LoginPage() {
 
         <div className="space-y-4">
           <div>
-            <label className="mb-1 block text-md text-zinc-700">Email</label>
+            <label className="mb-1 block text-md text-primary-light">Email</label>
             <input
               type="email"
               value={form.email}
@@ -97,7 +97,7 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label className="mb-1 block text-md text-zinc-700">Password</label>
+            <label className="mb-1 block text-md text-primary-light">Password</label>
             <input
               type="password"
               value={form.password}
@@ -112,7 +112,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="mt-6 w-full rounded-lg bg-cyan-500 px-4 py-2 font-medium text-zinc-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-70"
+          className="mt-6 w-full rounded-lg bg-primary px-4 py-2 font-medium text-white transition hover:bg-primary-light disabled:cursor-not-allowed disabled:opacity-70"
         >
           {loading ? "Signing in..." : "Login"}
         </button>
