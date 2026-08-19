@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { authClient } from "@/app/lib/auth-client";
 import { Logo } from "./Logo";
+import { motion } from "framer-motion";
 import { UserMenu } from "./UserMenu";
 import MobileMenu from "./MobileMenu";
 
@@ -25,10 +26,11 @@ export function Navbar() {
 
   const isActiveLink = (href: string) => pathname === href || (href !== "/" && pathname.startsWith(href));
 
-  const navLinkClass = (href: string) =>
-    `text-md font-medium transition ${
-      isActiveLink(href) ? "text-primary" : "text-text hover:text-primary-light"
-    }`;
+ const NAV_LINKS = [
+  { href: "/", label: "HOME" },
+  { href: "/campaigns", label: "EXPLORE CAMPAIGNS" },
+  { href: "/about", label: "ABOUT" },
+];
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -55,15 +57,27 @@ export function Navbar() {
 
         {/* Desktop Nav Links */}
         <nav className="hidden md:flex items-center gap-6">
-          <Link href="/" className={navLinkClass("/")}>
-            HOME
-          </Link>
-          <Link href="/campaigns" className={navLinkClass("/campaigns")}>
-            EXPLORE CAMPAIGNS
-          </Link>
-          <Link href="/about" className={navLinkClass("/about")}>
-            ABOUT
-          </Link>
+          {NAV_LINKS.map(({ href, label }) => {
+            const active = isActiveLink(href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={`relative text-md font-medium transition pb-1 ${
+                  active ? "text-primary" : "text-text hover:text-primary-light"
+                }`}
+              >
+                {label}
+                {active && (
+                  <motion.div
+                    layoutId="navbar-underline"
+                    className="absolute left-0 right-0 -bottom-1 h-0.5 bg-primary rounded-full"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Desktop Actions */}

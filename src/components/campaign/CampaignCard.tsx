@@ -11,6 +11,7 @@ import { FiMessageCircle } from "react-icons/fi";
 import { IconBase } from "react-icons";
 import { BsTwitter } from "react-icons/bs";
 import Link from "next/link";
+import ContributeButton from "../supporter/ContributeButton";
 
 type CampaignStatus = "pending" | "active" | "closed" | string;
 
@@ -147,18 +148,15 @@ return  Math.min(100, Math.round((raised / goal) * 100))
               </span>
             ))}
           </div>
-          <Link href={`/campaigns/${campaign._id}`}
+          <div className="flex items-center gap-1">
+            <Link href={`/campaigns/${campaign._id}`}
             
             className="border-[1.5px] border-info text-info font-bold text-xs px-[18px] py-2 rounded-full hover:bg-blue-900 hover:text-white transition-colors"
           >
             Details
           </Link>
-          <button
-            type="button"
-            className="border-[1.5px] border-primary text-primary font-bold text-xs px-[18px] py-2 rounded-full hover:bg-primary-light hover:text-white transition-colors cursor-pointer"
-          >
-            Donate Now
-          </button>
+          <ContributeButton minimumAmount={minimum_Contribution}></ContributeButton>
+          </div>
         </div>
 
         {/* Progress */}

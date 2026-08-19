@@ -12,7 +12,7 @@ const ContributeButton = ({minimumAmount}: Props) => {
       console.log(user);
     return (
           <Modal>
-      <Button variant="secondary" className={"w-full text-center bg-primary hover:bg-primary-light text-white text-md"}>Contribute Now</Button>
+      <Button variant="ghost" className={"w-full text-center text-primary-light border border-primary-light hover:bg-primary-light hover:text-white text-md"}>Donate Now</Button>
       <Modal.Backdrop>
         <Modal.Container placement="auto">
           <Modal.Dialog className="sm:max-w-md">

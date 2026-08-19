@@ -3,8 +3,8 @@ import { CampaignByIdResponse, CampaignResponse } from "@/types/campaign";
 import { getData } from "../action/getData";
 
 
-const getAllCampaign =async (status="" ): Promise<CampaignResponse> => {
- const result=  await getData(`/api/v1/campaigns?status=${status}`)
+const getAllCampaign =async (status="",category="", excludeId="" ): Promise<CampaignResponse> => {
+ const result=  await getData(`/api/v1/campaigns?status=${status}&category=${category}&excludeId=${excludeId}`)
  return result
 };
 export default getAllCampaign;

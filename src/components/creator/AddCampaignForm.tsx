@@ -16,7 +16,7 @@ import { addCampaign } from "@/app/lib/service/addCampaign";
 import { DashboardUser } from "@/app/lib/auth-server";
 
 const fieldClasses =
-  "w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-black outline-none ring-0 focus:border-cyan-500";
+  "w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-text-muted outline-none ring-0 focus:border-primary-light";
 
 function FieldError({ message }: { message?: string }) {
   return message ? <p className="mt-1 text-sm text-rose-500">{message}</p> : null;
@@ -90,7 +90,7 @@ console.log(res);
   };
 
   return (
-    <section className="max-w-4xl mx-auto rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm">
+    <section className="max-w-4xl mx-auto rounded-2xl border border-primary-light bg-white p-8 shadow-sm">
 
       <h1 className="mt-3 text-2xl font-semibold text-primary">Add New Campaign</h1>
       <p className="mt-3 text-text">

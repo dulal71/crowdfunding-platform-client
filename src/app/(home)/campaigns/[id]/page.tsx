@@ -1,10 +1,11 @@
-import { getCampaignById } from "@/app/lib/service/getAllCampaign";
-import CampaignStatusButton from "@/components/admin/CampaignStatusButton ";
+import getAllCampaign, { getCampaignById } from "@/app/lib/service/getAllCampaign";
+
 import Image from "next/image";
-import { ICampaign } from "@/types/campaign";
+
 import ContributeButton from "@/components/supporter/ContributeButton";
 import { FaArrowRightLong } from "react-icons/fa6";
 import Link from "next/link";
+import CampaignCard from "@/components/campaign/CampaignCard";
 
 type Props = {
   params: Promise<{
@@ -15,19 +16,8 @@ type Props = {
 const CampaignDetailsPage = async ({ params }: Props) => {
   const { id } = await params;
 const {data:campaign} = await getCampaignById(id);
-    
-
-  if (!campaign) {
-    return (
-      <div className="p-10">
-        <h1 className="text-2xl font-bold text-red-600">
-          Campaign not found
-        </h1>
-      </div>
-    );
-  }
-
-  const {
+   const {
+    _id,
     campaign_image_url,
     campaign_story,
     campaign_title,
@@ -41,8 +31,24 @@ const {data:campaign} = await getCampaignById(id);
     status,
     user_name,
     user_email,
-  } = campaign;
-console.log(campaign);
+  } = campaign;  
+
+ const {data} = await getAllCampaign("active",category,_id);
+     
+    const relatedCampaigns = data?.campaigns ?? [];
+
+  if (!campaign) {
+    return (
+      <div className="p-10">
+        <h1 className="text-2xl font-bold text-red-600">
+          Campaign not found
+        </h1>
+      </div>
+    );
+  }
+
+ 
+
   const progressPercent = Math.min(
     100,
     Math.round((funded_amount / funding_goal) * 100)
@@ -56,7 +62,7 @@ console.log(campaign);
   );
 
   return (
-    <div className="max-w-6xl  mx-auto p-6 md:p-5 space-y-8">
+    <div className="max-w-7xl  mx-auto p-6 md:p-5 space-y-8">
        
        
        <div className="flex items-center justify-center ">
@@ -168,7 +174,22 @@ console.log(campaign);
 <ContributeButton minimumAmount={minimum_Contribution} />
     </div>
       </div>
-      
+    {relatedCampaigns.length > 0 && (
+  <div>
+    <h2 className="text-2xl text-center text-primary font-semibold mb-4">
+      Related Campaigns
+    </h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {relatedCampaigns.map((campaign) => (
+        <CampaignCard
+          key={campaign._id}
+          campaign={campaign}
+        />
+      ))}
+    </div>
+  </div>
+)}
       
     </div>
   );
