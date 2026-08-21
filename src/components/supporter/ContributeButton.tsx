@@ -1,15 +1,66 @@
 "use client";
 import { authClient } from "@/app/lib/auth-client";
 import {Button, Input, Label, Modal, Surface, TextField} from "@heroui/react";
+import { useState } from "react";
 import { FaHandHoldingHeart } from "react-icons/fa";
 
 type Props = {
   minimumAmount: number;
 };
 const ContributeButton = ({minimumAmount}: Props) => {
-      const { data: session } = authClient.useSession();
+      const[error,setError]=useState<string>("")
+      const [donationCredit,setDonationCredit]=useState<number>(0)
+  const { data: session } = authClient.useSession();
       const user=session?.user
-      console.log(user);
+    
+
+      const handleAmountChange = (value: string) => {
+    const amount = Number(value);
+
+    setDonationCredit(amount);
+
+    if (!value) {
+      setError("");
+      return;
+    }
+
+    setError(validateDonation(amount));
+  };
+
+ const validateDonation = (amount: number) => {
+    if (amount <= 0) {
+      return "Please enter a valid donation amount";
+    }
+
+    if (amount < minimumAmount) {
+      return `Minimum donation amount is $${minimumAmount}`;
+    }
+
+    if (!user) {
+      return "Please login to make a donation";
+    }
+
+    if (user.credits < amount) {
+      return "Insufficient credits";
+    }
+
+    return "";
+  };
+
+
+
+
+   const handleDonate = async () => {
+    const validationError = validateDonation(donationCredit);
+
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+  
+    console.log("Donation:", donationCredit);
+  };
     return (
           <Modal>
       <Button variant="ghost" className={"w-full text-center text-primary-light border border-primary-light hover:bg-primary-light hover:text-white text-md"}>Donate Now</Button>
@@ -45,13 +96,30 @@ const ContributeButton = ({minimumAmount}: Props) => {
                   </TextField>
                   
                   
-                  <TextField className="w-full" name="message" variant="secondary">
+                 <TextField
+                    className="w-full"
+                    name="donationCredit"
+                    variant="secondary"
+                  >
                     <Label className="text-primary-light">Amount</Label>
-                    <Input 
-                    type="number"
-                    min={minimumAmount}
-                     placeholder={`Enter your Amount Minimum ${minimumAmount}`}/>
+
+                    <Input
+                      type="number"
+                      value={donationCredit || ""}
+                      onChange={(e) =>
+                        handleAmountChange(e.target.value)
+                      }
+                      min={minimumAmount}
+                      placeholder={`Enter amount (minimum ${minimumAmount})`}
+                    />
+
+                    {error && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {error}
+                      </p>
+                    )}
                   </TextField>
+                 
                 </form>
               </Surface>
             </Modal.Body>
@@ -59,7 +127,7 @@ const ContributeButton = ({minimumAmount}: Props) => {
               <Button slot="close" className={"text-primary-light"} variant="secondary">
                 Cancel
               </Button>
-              <Button slot="close" className={"bg-primary hover:bg-primary-light"}>Confirm</Button>
+              <Button onClick={()=>handleDonate} slot="close" className={"bg-primary hover:bg-primary-light"}>Confirm</Button>
             </Modal.Footer>
           </Modal.Dialog>
         </Modal.Container>
