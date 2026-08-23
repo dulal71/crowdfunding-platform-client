@@ -155,7 +155,7 @@ return  Math.min(100, Math.round((raised / goal) * 100))
           >
             Details
           </Link>
-          <ContributeButton minimumAmount={minimum_Contribution}></ContributeButton>
+          <ContributeButton campaign={campaign}></ContributeButton>
           </div>
         </div>
 

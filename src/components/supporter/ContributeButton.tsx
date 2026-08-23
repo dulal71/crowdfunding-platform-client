@@ -1,18 +1,22 @@
 "use client";
 import { authClient } from "@/app/lib/auth-client";
+import createDonation from "@/app/lib/service/createDonation";
+import { ICampaign } from "@/types/campaign";
 import {Button, Input, Label, Modal, Surface, TextField} from "@heroui/react";
 import { useState } from "react";
 import { FaHandHoldingHeart } from "react-icons/fa";
 
-type Props = {
-  minimumAmount: number;
-};
-const ContributeButton = ({minimumAmount}: Props) => {
+interface Props {
+  campaign: ICampaign;
+}
+const ContributeButton = ({campaign}: Props) => {
+  console.log(campaign);
+  const {minimum_Contribution: minimumAmount}=campaign
       const[error,setError]=useState<string>("")
       const [donationCredit,setDonationCredit]=useState<number>(0)
   const { data: session } = authClient.useSession();
       const user=session?.user
-    
+   
 
       const handleAmountChange = (value: string) => {
     const amount = Number(value);
@@ -57,9 +61,23 @@ const ContributeButton = ({minimumAmount}: Props) => {
       setError(validationError);
       return;
     }
+    if (!user) {
+    setError("Please login to make a donation");
+    return;
+  }
 
+     const payload={
+    campaignId:campaign._id  ,
+    creatorId:campaign.user_id,
+    supporterId:user.id,
+    amount:donationCredit,
+    status: "PENDING",
+}
+
+const res =  await createDonation(payload)
+console.log(res);
   
-    console.log("Donation:", donationCredit);
+    
   };
     return (
           <Modal>
@@ -127,7 +145,7 @@ const ContributeButton = ({minimumAmount}: Props) => {
               <Button slot="close" className={"text-primary-light"} variant="secondary">
                 Cancel
               </Button>
-              <Button onClick={()=>handleDonate} slot="close" className={"bg-primary hover:bg-primary-light"}>Confirm</Button>
+              <Button onClick={()=>handleDonate()}  className={"bg-primary hover:bg-primary-light"}>Confirm</Button>
             </Modal.Footer>
           </Modal.Dialog>
         </Modal.Container>

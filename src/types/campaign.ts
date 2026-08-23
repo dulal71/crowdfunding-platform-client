@@ -13,6 +13,7 @@ export type ICampaign = {
   campaign_image_url: string;
   status: CampaignStatus;
   createdAt?: string;
+  user_id:string;
   user_name?: string;
   user_email?: string;
 };
