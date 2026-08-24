@@ -84,10 +84,10 @@ export function Navbar() {
         <div className="hidden md:flex md:items-center md:gap-4">
           {!user ? (
             <>
-              <Link href="/login" className="border border-black px-2 py-0.5 text-black rounded-full transition-all duration-500 hover:bg-red-700 hover:text-white ">
+              <Link href="/login" className="border border-primary-light px-4 py-0.5 text-primary font-bold rounded-full transition-all duration-500 hover:bg-primary-light hover:text-white ">
                 Login
               </Link>
-              <Link href="/register" className="shadow rounded-full px-3 py-0.5 bg-linear-to-r from-cyan-800 to-violet-500">
+              <Link href="/register" className="border border-primary-light font-bold rounded-full px-4 py-0.5 bg-primary hover:bg-primary-light">
                 Register
               </Link>
             </>

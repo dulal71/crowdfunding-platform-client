@@ -1,5 +1,6 @@
 "use client";
 
+import { updateDonationStatus } from "@/app/lib/service/createDonation";
 import { ICampaign } from "@/types/campaign";
 import { Button, Card, CardHeader } from "@heroui/react";
 import { FaCheckCircle, FaUser, FaEnvelope, FaMoneyBillWave, FaTimes } from "react-icons/fa";
@@ -28,71 +29,71 @@ export default function DonationDetailsCard({
   campaign
   
 }: Props) {
-
+  console.log(donation);
      const {
     campaign_title,
-    
-    createdAt,
     deadline,
     funded_amount,
     funding_goal,
-    minimum_Contribution,
-    reward_info,
-    status,
-    user_name,
-    user_email,
+    minimum_Contribution
   } = campaign;  
+
+  const handleAccept=async()=>{
+    const payload={
+      status:'approved',
+      supporterId:donation.supporterId,
+      campaignId:donation.campaignId,
+      amount:donation.amount
+    }
+try{
+const res = await updateDonationStatus(donation._id, payload );
+console.log(res);
+}catch(error){
+console.log(error);
+}
+  }
   return (
     <div className="mx-auto w-full max-w-2xl p-4">
-      <Card className="w-full bg-white shadow-md">
-        <CardHeader className="flex flex-col items-start gap-1">
-          <h2 className="text-xl text-primary font-bold">
-            Donation Details
-          </h2>
+      <div className="w-full space-y-4">
+        {/* Header */}
+        <div className="flex flex-col bg-white rounded-xl shadow items-start p-2 md:p-5 gap-1">
+  <h2 className="text-xl text-primary font-bold">Donation Details</h2>
 
-          
-        </CardHeader>
+  {/* Amount */}
+  <div className="flex items-center justify-between w-full rounded-xl bg-default-100 p-4">
+    <div className="flex items-center gap-3">
+      <FaMoneyBillWave className="text-xl text-accent" />
+      <div>
+        <p className="text-sm text-primary">Donation Amount</p>
+        <p className="text-2xl text-accent font-bold">${donation.amount}</p>
+      </div>
+    </div>
 
-       
+    <div>
+      <span
+        className={`rounded-full px-3 py-1 text-xs font-semibold ${
+          donation.status === "PENDING"
+            ? "bg-yellow-500 text-warning-700"
+            : donation.status === "ACCEPTED"
+            ? "bg-success-100 text-success-700"
+            : donation.status === "REJECTED"
+            ? "bg-danger-100 text-danger-700"
+            : "bg-default-200 text-default-700"
+        }`}
+      >
+        {donation.status}
+      </span>
+    </div>
+  </div>
+</div>
 
-        <Card.Content className="gap-5">
-
-          {/* Amount */}
-          <div className="flex items-center justify-between rounded-xl bg-default-100 p-4">
-            <div className="flex items-center gap-3">
-              <FaMoneyBillWave className="text-xl text-accent" />
-
-              <div>
-                <p className="text-sm text-primary">
-                  Donation Amount
-                </p>
-
-                <p className="text-2xl text-accent font-bold">
-                  ${donation.amount}
-                </p>
-              </div>
-            </div>
-
-            <span
-              className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                donation.status === "PENDING"
-                  ? "bg-yellow-500 text-warning-700"
-                  : donation.status === "ACCEPTED"
-                  ? "bg-green-500 text-success-700"
-                  : "bg-accent text-danger-700"
-              }`}
-            >
-              {donation.status}
-            </span>
-          </div>
-
-          {/* Supporter */}
-          <div>
-            <p className="mb-2 text-sm font-semibold text-primary">
+  {/* Supporter */}
+          <div className="bg-white rounded-xl shadow p-2 md:p-5">
+            <p className="mb-2 text-md font-semibold text-primary">
               Supporter Information
             </p>
 
-            <div className="space-y-3 rounded-xl border border-text-muted p-4">
+            <div className="space-y-3 rounded-xl  p-4">
               <div className="flex items-center gap-3">
                 <FaUser className="text-accent" />
 
@@ -142,13 +143,14 @@ export default function DonationDetailsCard({
             </div>
           </div>
 
-          {/* Campaign */}
-          <div>
-            <p className="mb-2 text-sm font-semibold text-primary">
+
+{/* Campaign */}
+          <div className="bg-white rounded-xl shadow p-2 md:p-5">
+            <p className="mb-2 text-md font-semibold text-primary">
               Campaign Information
             </p>
 
-            <div className="space-y-3 rounded-xl border border-text-muted p-4">
+            <div className="space-y-3 rounded-xl  p-4">
               <div className="flex items-center gap-3">
                 
                 <div>
@@ -218,13 +220,10 @@ export default function DonationDetailsCard({
             </div>
           </div>
 
-          {/* Date */}
-          
-
-          {/* Accept */}
+{/* Accept */}
           {donation.status === "PENDING" && (
             <Button
-            
+              onClick={()=>handleAccept()}
               size="lg"
               className="w-full font-semibold bg-primary hover:bg-primary-light"
               
@@ -234,8 +233,8 @@ export default function DonationDetailsCard({
             </Button>
           )}
 
-        </Card.Content>
-      </Card>
-    </div>
+        </div>
+      </div>
+   
   );
 }
