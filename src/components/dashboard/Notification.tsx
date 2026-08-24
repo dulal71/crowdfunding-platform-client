@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { AiOutlineBell, AiOutlineClose } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
+import { getNotificationUrl } from "./getNotificationUrl";
 
 type NotificationProps = {
   isNotifOpen: boolean;
@@ -59,7 +60,7 @@ const Notification = ({
         <AiOutlineBell className="text-xl text-accent" />
 
         {unreadCount > 0 && (
-          <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">
+          <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-white">
             {unreadCount > 9 ? "9+" : unreadCount}
           </span>
         )}
@@ -112,8 +113,7 @@ const Notification = ({
             <div className="max-h-80 overflow-y-auto">
               {notifications.map((n) => (
                 <div  key={n._id} className=" flex items-center justify-between border-b px-2 py-3 transition last:border-b-0 hover:bg-zinc-50">
-                  <Link 
-                  href={`/dashboard/admin/campaigns/${n.campaignId}`}>
+                  <Link href={getNotificationUrl(n)}>
                   <div className="flex items-center justify-between gap-2">
                     <p className="font-medium text-zinc-800">
                       {n.title}

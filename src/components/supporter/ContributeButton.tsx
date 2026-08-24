@@ -4,7 +4,9 @@ import createDonation from "@/app/lib/service/createDonation";
 import { ICampaign } from "@/types/campaign";
 import {Button, Input, Label, Modal, Surface, TextField} from "@heroui/react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaHandHoldingHeart } from "react-icons/fa";
+import { TbCurrencyYen } from "react-icons/tb";
 
 interface Props {
   campaign: ICampaign;
@@ -67,6 +69,8 @@ const ContributeButton = ({campaign}: Props) => {
   }
 
      const payload={
+      supporterName:user.name,
+      supporterEmail:user.email,
     campaignId:campaign._id  ,
     creatorId:campaign.user_id,
     supporterId:user.id,
@@ -74,9 +78,15 @@ const ContributeButton = ({campaign}: Props) => {
     status: "PENDING",
 }
 
+try{
 const res =  await createDonation(payload)
-console.log(res);
-  
+if(res.data.insertedId){
+  toast.success("Donation submitted and is pending approval");
+}
+}catch(error){
+toast.error("Failed to submit donation");
+}
+
     
   };
     return (
@@ -145,7 +155,7 @@ console.log(res);
               <Button slot="close" className={"text-primary-light"} variant="secondary">
                 Cancel
               </Button>
-              <Button onClick={()=>handleDonate()}  className={"bg-primary hover:bg-primary-light"}>Confirm</Button>
+              <Button onClick={()=>handleDonate()} slot="close"  className={"bg-primary hover:bg-primary-light"}>Confirm</Button>
             </Modal.Footer>
           </Modal.Dialog>
         </Modal.Container>

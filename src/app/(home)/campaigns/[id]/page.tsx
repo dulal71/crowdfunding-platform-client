@@ -171,7 +171,7 @@ const {data:campaign} = await getCampaignById(id);
       )}
 
       
-<ContributeButton minimumAmount={minimum_Contribution} />
+<ContributeButton campaign={campaign} />
     </div>
       </div>
     {relatedCampaigns.length > 0 && (

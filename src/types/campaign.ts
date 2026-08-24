@@ -36,14 +36,24 @@ export type CampaignByIdResponse = {
   data: ICampaign;
 };
 
-
+type NotificationType =
+  | "DONATION_RECEIVED"
+  | "DONATION_PENDING"
+  | "DONATION_APPROVED"
+  | "DONATION_REJECTED"
+  | "CAMPAIGN_CREATED"
+  | "CAMPAIGN_APPROVED"
+  | "CAMPAIGN_REJECTED"
+  | "CAMPAIGN_COMPLETED";
+  
 export type INotification = {
   _id: string;
-  type: string;
+  type: NotificationType;
   title: string;
   message: string;
   userId: string;
   campaignId: string;
+  donationId:string;
   isRead: boolean;
   createdAt: string;
 };
