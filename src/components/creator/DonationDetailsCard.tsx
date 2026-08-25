@@ -14,7 +14,7 @@ interface Donation {
   supporterId: string;
   supporterName: string;
   supporterEmail: string;
-  status: "PENDING" | "ACCEPTED" | "REJECTED";
+  status: "PENDING" | "approved" | "REJECTED";
   createdAt: string;
 }
 
@@ -74,8 +74,8 @@ console.log(error);
         className={`rounded-full px-3 py-1 text-xs font-semibold ${
           donation.status === "PENDING"
             ? "bg-yellow-500 text-warning-700"
-            : donation.status === "ACCEPTED"
-            ? "bg-success-100 text-success-700"
+            : donation.status === "approved"
+            ? "bg-green-500 "
             : donation.status === "REJECTED"
             ? "bg-danger-100 text-danger-700"
             : "bg-default-200 text-default-700"

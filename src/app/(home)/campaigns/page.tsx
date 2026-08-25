@@ -12,7 +12,7 @@ const CampaignsPage = async () => {
 
 
   return (
-    <div className=" container mx-auto space-y-12">
+    <div className="md:w-full lg:container  mx-auto space-y-12">
       
       <div className="flex items-center justify-center mt-3">
   <div className="flex items-center gap-2 text-sm">
@@ -31,7 +31,7 @@ const CampaignsPage = async () => {
     
   </div>
 </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-y-16  lg:grid-cols-4 lg:gap-5 p-5">
       {campaigns.map((campaign:ICampaign) => (
         <CampaignCard key={campaign._id} campaign={campaign}></CampaignCard>
       ))}

@@ -53,7 +53,9 @@ const {data:campaign} = await getCampaignById(id);
     100,
     Math.round((funded_amount / funding_goal) * 100)
   );
-
+console.log(progressPercent);
+console.log(funded_amount);
+console.log(funding_goal);
   const daysLeft = Math.max(
     0,
     Math.ceil(

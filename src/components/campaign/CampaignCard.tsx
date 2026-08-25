@@ -175,8 +175,8 @@ return  Math.min(100, Math.round((raised / goal) * 100))
                 className={`h-full rounded-full  transition-all duration-500 
                   ${
       pct >= 100
-        ? "bg-red-500"
-        : "bg-primary-light"
+        ? "bg-primary-light"
+        : "bg-accent"
     }
                   `}
                 style={{ width: `${pct}%` }}
