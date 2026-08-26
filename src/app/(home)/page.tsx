@@ -1,9 +1,10 @@
+import StatsSection from "@/components/layout/StateSection";
 
 
 const HomePage = () => {
     return (
-        <div>
-            
+        <div className="space-y-24 mb-24">
+          <StatsSection></StatsSection>  
         </div>
     );
 };
