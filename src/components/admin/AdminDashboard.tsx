@@ -39,20 +39,20 @@ const AdminDashboard = async () => {
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-rose-900">
           Dashboard
         </p>
-        <h1 className="mt-3 text-3xl font-semibold text-zinc-900">
+        <h1 className="mt-3 text-3xl font-semibold text-primary">
           {content.heading}
         </h1>
-        <p className="mt-3 max-w-2xl text-zinc-600">{content.description}</p>
+        <p className="mt-3 max-w-2xl text-text">{content.description}</p>
       </section>
 
       <section className="grid gap-4 md:grid-cols-3 xl:grid-cols-6">
         {content.stats.map((stat) => (
           <div
             key={stat.label}
-            className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm"
+            className="rounded-2xl  bg-white p-5 shadow"
           >
-            <p className="text-sm text-zinc-500">{stat.label}</p>
-            <p className="mt-2 text-2xl font-semibold text-zinc-900">
+            <p className="text-md font-bold text-primary">{stat.label}</p>
+            <p className="mt-2 text-2xl font-semibold text-accent">
               {stat.value}
             </p>
           </div>
@@ -63,12 +63,12 @@ const AdminDashboard = async () => {
         {content.widgets.map((widget) => (
           <div
             key={widget.title}
-            className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm"
+            className="rounded-2xl  bg-white p-6 shadow"
           >
-            <h2 className="text-lg font-semibold text-zinc-900">
+            <h2 className="text-lg font-semibold text-primary">
               {widget.title}
             </h2>
-            <p className="mt-2 text-sm leading-6 text-zinc-600">
+            <p className="mt-2 text-sm leading-6 text-text">
               {widget.body}
             </p>
           </div>
