@@ -3,9 +3,15 @@ import CampaignCard from "@/components/campaign/CampaignCard";
 import { ICampaign } from "@/types/campaign";
 import Link from "next/link";
 import { FaArrowRightLong } from "react-icons/fa6";
-
-const CampaignsPage = async () => {
-  const {data} = await getAllCampaign('active');
+type SearchProps = {
+  searchParams: Promise<{
+    category?: string;
+  }>;
+};
+const CampaignsPage = async ({searchParams}:SearchProps) => {
+  const {category}=await searchParams
+  console.log(category);
+  const {data} = await getAllCampaign('active',category);
       const {campaigns} = data;
 
 
