@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import { AiOutlineBell, AiOutlineClose } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { getNotificationUrl } from "./getNotificationUrl";
+import readNotification from "@/app/lib/service/readNotification";
+import { useRouter } from "next/navigation";
 
 type NotificationProps = {
   isNotifOpen: boolean;
@@ -39,11 +41,21 @@ const Notification = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [notifRef, setIsNotifOpen]);
-  
+  const  router = useRouter()
   const handleDelete = async (id: string) => {
   try {
   const res =  await deleteNotification(id);
   console.log(res);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const handleNotificationClick = async (n: INotification) => {
+  try {
+    await readNotification(n._id, { isRead: true });
+
+    router.push(getNotificationUrl(n));
   } catch (error) {
     console.log(error);
   }
@@ -73,9 +85,13 @@ const Notification = ({
           <div className="flex items-center justify-between px-2 py-1">
             <div className="text-md font-semibold text-zinc-700">
               Notifications{" "}
-              <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-600">
-                {notifications.length}
-              </span>
+              
+                {unreadCount > 0 && (
+                   <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-600">
+                     {unreadCount}
+                     </span>
+                ) }
+             
             </div>
 
             <button
@@ -113,9 +129,9 @@ const Notification = ({
             <div className="max-h-80 overflow-y-auto">
               {notifications.map((n) => (
                 <div  key={n._id} className=" flex items-center justify-between border-b px-2 py-3 transition last:border-b-0 hover:bg-zinc-50">
-                  <Link href={getNotificationUrl(n)}>
+                  <div  onClick={()=>handleNotificationClick(n)}>
                   <div className="flex items-center justify-between gap-2">
-                    <p className="font-medium text-zinc-800">
+                    <p className={`font-medium ${!n.isRead ? 'text-text' :'text-muted'} `}>
                       {n.title}
                     </p>
 
@@ -124,7 +140,7 @@ const Notification = ({
                     )}
                   </div>
                   <div className="flex justify-between items-center">
-                     <p className="mt-1 text-[13px] text-zinc-700">
+                     <p className={`mt-1 text-[13px] ${n.isRead ?'text-text' :'text-muted'} text-muted`}>
                     {n.message.split(/\s+/).slice(0, 3).join(" ")}
                     {n.message.trim().split(/\s+/).length > 3
                       ? "..."
@@ -132,7 +148,7 @@ const Notification = ({
                   </p>
                   
                   </div>
-                  </Link>
+                  </div>
                       <button
       type="button"
       onClick={(e) => {

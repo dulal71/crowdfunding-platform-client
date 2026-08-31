@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef} from "react";
 
 import { Logo } from "../layout/Logo";
 import { INotification } from "@/types/campaign";
 
 import Notification from "./Notification";
-import { TbCredits } from "react-icons/tb";
+
 import { FaCreditCard } from "react-icons/fa";
 
 
@@ -31,7 +31,7 @@ export function DashboardNavbar({user, notifications = [] }: DashboardNavbarProp
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const notifRef = useRef<HTMLDivElement>(null);
 
-  const unreadCount = notifications.filter((n) => !n.read).length;
+  const unreadCount = notifications.filter((n) => !n.isRead).length;
 
  return (
     <header className="relative border-b border-zinc-200 bg-white backdrop-blur z-50">
