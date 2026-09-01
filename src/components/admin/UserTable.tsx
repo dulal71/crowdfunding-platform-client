@@ -60,9 +60,9 @@ const UserTable = ({ users }: UserTableProps) => {
   return (
     <div className="w-full overflow-hidden rounded-lg border border-gray-200 bg-white">
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse text-sm">
+        <table className="w-full border-collapse border-primary-light/50 text-sm">
           <thead>
-            <tr className="border-b border-gray-200 bg-black">
+            <tr className="border-b border-primary-light/50 bg-primary">
               <th className="px-6 py-3 text-left">
                NAME
               </th>
@@ -83,7 +83,7 @@ const UserTable = ({ users }: UserTableProps) => {
               return (
                 <tr
                   key={user.id}
-                  className="border-b border-gray-100 last:border-0 hover:bg-gray-50"
+                  className="border-b border-accent  hover:bg-primary/10"
                 >
                   <td className="px-6 py-3">
                     <div className="flex items-center gap-3">
@@ -129,7 +129,7 @@ const UserTable = ({ users }: UserTableProps) => {
 
       {/* Pagination footer */}
       <div className="flex items-center justify-between border-t border-gray-200 px-6 py-3">
-        <span className="text-xs text-gray-500">
+        <span className="text-xs text-primary">
           {sortedUsers.length} items &middot; Page {page} of {totalPages}
         </span>
         <div className="flex items-center gap-1.5">
@@ -137,7 +137,7 @@ const UserTable = ({ users }: UserTableProps) => {
             type="button"
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-text transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
           >
             Prev
           </button>
@@ -148,7 +148,7 @@ const UserTable = ({ users }: UserTableProps) => {
               onClick={() => setPage(num)}
               className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
                 num === page
-                  ? "bg-black text-white"
+                  ? "bg-primary text-white"
                   : "border border-gray-200 text-gray-600 hover:bg-gray-50"
               }`}
             >
@@ -159,7 +159,7 @@ const UserTable = ({ users }: UserTableProps) => {
             type="button"
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-md border border-gray-200 px-2.5 py-1 text-xs font-medium text-text transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
           >
             Next
           </button>

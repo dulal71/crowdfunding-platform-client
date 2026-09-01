@@ -36,7 +36,7 @@ const UserManagementToolbar = () => {
         <input
           type="text"
           placeholder="Search..."
-          className="w-full rounded-md border border-zinc-500 py-2 pl-9 pr-3 text-sm text-gray-200 placeholder:text-gray-500 outline-none transition-colors focus:border-zinc-800 focus:ring-2 focus:ring-zinc-500/20"
+          className="w-full rounded-md border border-primary-light/50 py-2 pl-9 pr-3 text-sm text-gray-200 placeholder:text-gray-500 outline-none transition-colors focus:border-zinc-800 focus:ring-2 focus:ring-zinc-500/20"
         />
       </div>
 
@@ -47,9 +47,9 @@ const UserManagementToolbar = () => {
           onClick={() => setOpen((o) => !o)}
           aria-haspopup="listbox"
           aria-expanded={open}
-          className="flex items-center gap-2 rounded-md text-zinc-900 border border-zinc-500 px-3 py-2 text-sm font-semibold  shadow-sm transition-colors hover:bg-zinc-500 hover:text-white"
+          className="flex items-center gap-2 rounded-md text-zinc-900 border border-primary-light/50 px-3 py-2 text-sm font-semibold  shadow-sm transition-colors hover:bg-zinc-500 hover:text-white"
         >
-          <FiFilter className="h-4 w-4 text-zinc-900" />
+          <FiFilter className="h-4 w-4 text-primary" />
           Filter by {currentLabel === "All Roles" ? "Role" : currentLabel}
           <FiChevronDown
             className={`h-4 w-4 text-indigo-300 transition-transform ${

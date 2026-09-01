@@ -87,7 +87,7 @@ const item = {
 
 export default function CampaignCategories() {
   return (
-    <section className="bg-[#f6f1e7d2] py-20 px-6">
+    <section className="bg-white py-20 px-6">
       <div className="mx-auto max-w-5xl text-center">
         <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-orange-700">
           Explore campaigns

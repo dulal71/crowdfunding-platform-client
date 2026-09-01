@@ -134,7 +134,7 @@ export function DashboardSidebar({
               <span className={`flex items-center ${collapsed ? "" : "gap-3"}`}>
                 <Icon
                   size={17}
-                  className={`shrink-0 ${isActive ? "text-white" : "text-accent group-hover:text-primary-light"}`}
+                  className={`shrink-0 ${isActive ? "text-white" : "text-accent group-hover:text-white"}`}
                 />
                 {showLabel && item.label}
               </span>
